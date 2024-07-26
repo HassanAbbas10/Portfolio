@@ -3,18 +3,25 @@ import { Link } from "react-scroll"
 
 const Header = () => {
   return (<>
-    <header className="p-5 text-white bg-black border-b-2 shadow-2xl border-custom-teal shadow-custom-green hover:shadow-custom-teal hover:duration-500">
-    <div className="container flex items-center justify-between mx-auto">
-      <h1 className="text-3xl font-extrabold font-quicksand text-custom-green">Hassan Abbas</h1>
-      <nav>
-        <ul className="flex space-x-4 cursor-pointer">
-          <Link to="about" smooth={true} duration={500}>About</Link>
-          <Link to="projects" smooth={true} duration={500}>Projects</Link>
-          <Link to="contact" smooth={true} duration={500}>Contact</Link>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <header className="p-5 font-bold uppercase duration-700 bg-black border-b-2 rounded-b-full shadow-2xl hover:border-purpletext-4xl text-custom-teal font-quicksand border-custom-teal shadow-custom-green hover:shadow-custom-teal hover:duration-700">
+  <div className="container flex flex-wrap items-center justify-center mx-auto sm:justify-between">
+    <h1 className="text-3xl font-extrabold font-quicksand text-custom-green sm:pl-8">Hassan Abbas</h1>
+    <nav className="w-full md:w-auto">
+      <ul className="flex-col items-center justify-center mt-2 space-y-2 text-center cursor-pointer sm:items-center sm:flex sm:flex-row md:space-y-0 md:space-x-4 md:mt-0 sm:pr-12">
+        <li>
+          <Link to="about" smooth={true} duration={500} className="duration-500 font-quicksand hover:text-custom-orange">About</Link>
+        </li>
+        <li>
+          <Link to="projects" smooth={true} duration={500} className="duration-500 font-quicksand hover:text-custom-orange">Projects</Link>
+        </li>
+        <li>
+          <Link to="contact" smooth={true} duration={500} className="duration-500 font-quicksand hover:text-custom-orange">Contact</Link>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
   </>
   )
 }
