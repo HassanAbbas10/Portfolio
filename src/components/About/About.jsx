@@ -30,12 +30,13 @@ const About = () => {
             </h1>
             <p className="title-font sm:text-xl text-xl mb-4 font-medium font-quicksand text-gray-300 my-8">
               Currently Working on Projects and My focus is on MERN Stack
-            </p>
+            </p><a href={CV} download="My CV" target="_blank">
             <button className="w-[12rem] p-3 font-quicksand animate-shimmer items-center justify-center border border-white bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-4 font-medium text-custom-green transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 my-8">
-              <a href={CV} download="My CV" target="_blank">
+              
                 Download CV
-              </a>
+              
             </button>
+            </a>
             <SocialLinks />
           </div>
           <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
