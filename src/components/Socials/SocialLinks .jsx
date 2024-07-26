@@ -7,65 +7,60 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
 const SocialLinks = () => {
   return (
-    <div className=" space-x-5 text-lg">
-      {socialLinks.email && (
-        <Button
-          className="bg-black border border-custom-teal rounded-full "
-         
-          rel="noopener"
-          aria-label="URL"
-          href={socialLinks.url}
-          target="_blank"
-        >
-          <span className="py-1">
-          <EmailOutlinedIcon/>
-          </span>
-        </Button>
-      )}
-      {socialLinks.linkedin && (
-        <Button
-          className="bg-blue-400 rounded-full ml-1"
-          
-          rel="noopener"
-          aria-label="Linkedin"
-          href={socialLinks.linkedin}
-          target="_blank"
-        >
-          <span className="py-1">
-           <LinkedInIcon/>
-          </span>
-        </Button>
-      )}
-      {socialLinks.github && (
-        <Button
-          className="bg-slate-600 rounded-full ml-1"
-          color="github"
-          href={socialLinks.github}
-          rel="noopener"
-          aria-label="Github"
-          target="_blank"
-        >
-          <span className="py-1">
-            <GitHubIcon/>
-          </span>
-        </Button>
-      )}
-      {socialLinks.instagram && (
-        <Button
-          className="bg-pink-400 rounded-full"
-          color="instagram"
-          href={socialLinks.instagram}
-          target="_blank"
-          rel="noopener"
-          aria-label="Instagram"
-        >
-          <span className="py-1">
-            <InstagramIcon/>
-          </span>
-        </Button>
-      )}
-     
-    </div>
+    <div className="flex flex-wrap justify-center sm:justify-start space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-5 text-base sm:text-lg">
+    {socialLinks.email && (
+      <Button
+        className="bg-black border border-custom-teal rounded-full mb-2 sm:mb-0"
+        rel="noopener"
+        aria-label="URL"
+        href={socialLinks.url}
+        target="_blank"
+      >
+        <span className="p-1 sm:p-2">
+          <EmailOutlinedIcon className="w-4 h-4 sm:w-5 sm:h-5"/>
+        </span>
+      </Button>
+    )}
+    {socialLinks.linkedin && (
+      <Button
+        className="bg-blue-400 rounded-full mb-2 sm:mb-0"
+        rel="noopener"
+        aria-label="Linkedin"
+        href={socialLinks.linkedin}
+        target="_blank"
+      >
+        <span className="p-1 sm:p-2">
+          <LinkedInIcon className="w-4 h-4 sm:w-5 sm:h-5"/>
+        </span>
+      </Button>
+    )}
+    {socialLinks.github && (
+      <Button
+        className="bg-slate-600 rounded-full mb-2 sm:mb-0"
+        href={socialLinks.github}
+        rel="noopener"
+        aria-label="Github"
+        target="_blank"
+      >
+        <span className="p-1 sm:p-2">
+          <GitHubIcon className="w-4 h-4 sm:w-5 sm:h-5"/>
+        </span>
+      </Button>
+    )}
+    {socialLinks.instagram && (
+      <Button
+        className="bg-pink-400 rounded-full mb-2 sm:mb-0"
+        href={socialLinks.instagram}
+        target="_blank"
+        rel="noopener"
+        aria-label="Instagram"
+      >
+        <span className="p-1 sm:p-2">
+          <InstagramIcon className="w-4 h-4 sm:w-5 sm:h-5"/>
+        </span>
+      </Button>
+    )}
+  </div>
   );
 };
 

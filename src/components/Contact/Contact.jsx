@@ -3,9 +3,9 @@
 const Contact = () => {
   return (
     <>
-    <section id="contact" className="py-20 ">
+    <section id="contact" className="mb-8 mt-5 ">
       <div className="container mx-auto text-center">
-        <h2 className="text-4xl font-bold uppercase text-custom-teal font-quicksand">Contact</h2>
+        <h2 className="text-4xl py-4 font-bold uppercase text-custom-teal font-quicksand">Contact</h2>
         <p className="mb-8 text-white ">Feel free to get in touch with me for any project inquiries or just to say hello!</p>
         <form className="max-w-lg mx-auto">
           <div className="mb-4">
