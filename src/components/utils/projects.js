@@ -1,4 +1,19 @@
 import {dj,bookshop,shop} from '../../assets/index'
+
+export const words =[
+"I am a React Js Developer",
+"Specializing in Front-end"
+]
+
+export const socialLinks = {
+    email: "mailto:hassanabbas05764@gmail.com",
+    linkedin: "https://www.linkedin.com/in/hassan-abbas-b34545263/",
+    github: "https://github.com/HassanAbbas10",
+    instagram: "https://www.instagram.com/",
+}
+  
+
+
 const projects = [
     {
         id:1,
