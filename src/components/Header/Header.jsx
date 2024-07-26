@@ -3,7 +3,7 @@ import { Link } from "react-scroll"
 
 const Header = () => {
   return (<>
-  <header className="p-5 font-bold uppercase duration-700 bg-black border-b-2 rounded-b-full shadow-xl hover:border-purpletext-4xl text-custom-teal font-quicksand border-custom-teal shadow-custom-green hover:shadow-red-500 hover:shadow-2xl hover:duration-700">
+  <header className="p-5 font-bold uppercase duration-700 bg-black border-b-2 rounded-b-full shadow-xl hover:border-purpletext-4xl text-custom-teal font-quicksand border-custom-teal  shadow-custom-green hover:border-red-500 hover:shadow-red-500 hover:shadow-2xl hover:duration-700">
   <div className="container flex flex-wrap items-center justify-center mx-auto sm:justify-between">
     <h1 className="text-3xl font-extrabold font-quicksand text-custom-green sm:pl-8">Hassan Abbas</h1>
     <nav className="w-full md:w-auto">

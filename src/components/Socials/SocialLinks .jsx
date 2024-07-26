@@ -1,5 +1,5 @@
 
-import { Button } from "../../components/ui/button";
+
 import { socialLinks } from "../../components/utils/projects";
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -9,56 +9,51 @@ const SocialLinks = () => {
   return (
     <div className="flex flex-wrap justify-center sm:justify-start space-x-2 sm:space-x-3 md:space-x-4 lg:space-x-5 text-base sm:text-lg">
     {socialLinks.email && (
-      <Button
-        className="bg-black border border-custom-teal rounded-full mb-2 sm:mb-0"
-        rel="noopener"
-        aria-label="URL"
-        href={socialLinks.url}
-        target="_blank"
+      <button
+        className="bg-custom-orange border border-custom-teal rounded-full mb-2 sm:mb-0"
+      
       >
         <span className="p-1 sm:p-2">
+          <a href={socialLinks.email} target="_blank">
           <EmailOutlinedIcon className="w-4 h-4 sm:w-5 sm:h-5"/>
+          </a>
         </span>
-      </Button>
+      </button>
     )}
     {socialLinks.linkedin && (
-      <Button
+      <button
         className="bg-blue-400 rounded-full mb-2 sm:mb-0"
-        rel="noopener"
-        aria-label="Linkedin"
-        href={socialLinks.linkedin}
-        target="_blank"
+
       >
         <span className="p-1 sm:p-2">
+          <a href={socialLinks.linkedin} target="_blank">
           <LinkedInIcon className="w-4 h-4 sm:w-5 sm:h-5"/>
+          </a>
         </span>
-      </Button>
+      </button>
     )}
     {socialLinks.github && (
-      <Button
+      <button
         className="bg-slate-600 rounded-full mb-2 sm:mb-0"
-        href={socialLinks.github}
-        rel="noopener"
-        aria-label="Github"
-        target="_blank"
+       
       >
-        <span className="p-1 sm:p-2">
+       <span className="p-1 sm:p-2">
+          <a href={socialLinks.github} target="_blank">
           <GitHubIcon className="w-4 h-4 sm:w-5 sm:h-5"/>
+          </a>
         </span>
-      </Button>
+      </button>
     )}
     {socialLinks.instagram && (
-      <Button
+      <button
         className="bg-pink-400 rounded-full mb-2 sm:mb-0"
-        href={socialLinks.instagram}
-        target="_blank"
-        rel="noopener"
-        aria-label="Instagram"
       >
         <span className="p-1 sm:p-2">
+          <a href={socialLinks.instagram} target="_blank">
           <InstagramIcon className="w-4 h-4 sm:w-5 sm:h-5"/>
+          </a>
         </span>
-      </Button>
+      </button>
     )}
   </div>
   );
