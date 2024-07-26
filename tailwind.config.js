@@ -18,20 +18,31 @@ module.exports = {
       },
     },
     extend: {
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+      
+        colors:{
+          'custom-green':'#37c898',
+          'custom-orange':'#fe9958',
+          'custom-teal':'#5ec0cf'
         },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+        fontFamily: {
+          'cormorant': ['Cormorant Garamond', 'serif'],
+          'quicksand': ['Quicksand', 'sans-serif'],
         },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
+     
+
+    "animation": {
+            shimmer: "shimmer 2s linear infinite"
+          },
+          "keyframes": {
+            shimmer: {
+              from: {
+                "backgroundPosition": "0 0"
+              },
+              to: {
+                "backgroundPosition": "-200% 0"
+              }
+            }
+          }
     },
   },
   plugins: [require("tailwindcss-animate")],

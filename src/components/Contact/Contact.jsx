@@ -3,10 +3,10 @@
 const Contact = () => {
   return (
     <>
-    <section id="contact" className="py-20 bg-gray-100">
+    <section id="contact" className="py-20 ">
       <div className="container mx-auto text-center">
-        <h2 className="mb-4 text-4xl font-bold">Contact</h2>
-        <p className="mb-8 text-gray-700">Feel free to get in touch with me for any project inquiries or just to say hello!</p>
+        <h2 className="text-4xl font-bold uppercase text-custom-teal font-quicksand">Contact</h2>
+        <p className="mb-8 text-white ">Feel free to get in touch with me for any project inquiries or just to say hello!</p>
         <form className="max-w-lg mx-auto">
           <div className="mb-4">
             <input type="text" className="w-full p-3 border border-gray-300 rounded-lg" placeholder="Name" />

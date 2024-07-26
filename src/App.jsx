@@ -7,10 +7,11 @@ import "./App.css";
 
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
+
 const Layout = () => {
   
   return (
-    <div className="app">
+    <div className="bg-black app">
       <Header />
       <Outlet />
       <Footer />
@@ -28,6 +29,8 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+    
+     
     
     ],
   },
