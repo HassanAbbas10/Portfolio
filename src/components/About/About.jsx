@@ -8,7 +8,7 @@ const About = () => {
     <>
     <section className="w-full h-screen mt-10 bg-black">
       <div className=" mx-auto text-center">
-        <h2 className="text-4xl font-bold uppercase text-custom-teal font-quicksand  ">
+        <h2 className="text-4xl font-bold uppercase text-custom-teal font-quicksand">
           About Me
         </h2>
         <div className="container mx-auto flex flex-col md:flex-row items-center px-5 py-10">
@@ -29,7 +29,7 @@ const About = () => {
               />
             </h1>
             <p className="title-font sm:text-xl text-xl mb-4 font-medium font-quicksand text-gray-300 my-8">
-              Currently Working on Projects
+              Currently Working on Projects and My focus is on MERN Stack
             </p>
             <button className="w-[12rem] p-3 font-quicksand animate-shimmer items-center justify-center border border-white bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-4 font-medium text-custom-green transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 my-8">
               <a href={CV} download="My CV" target="_blank">
