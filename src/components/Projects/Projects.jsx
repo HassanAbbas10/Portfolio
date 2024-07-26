@@ -4,7 +4,7 @@ import projects from "../utils/projects";
 const Projects = () => {
   return (
     <>
-    <div className=" mx-auto text-center ">
+    <div className="mx-auto text-center sm:mt-0 mt-32">
     <h2 className="text-4xl font-bold uppercase text-custom-teal font-quicksand">Projects</h2>
     </div>
       <div className="grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 lg:grid-cols-3">

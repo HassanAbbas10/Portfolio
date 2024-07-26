@@ -12,7 +12,13 @@ export const socialLinks = {
     instagram: "https://www.instagram.com/",
 }
   
-
+export const skill = [
+    { name: 'JavaScript', level: 80 ,bg:"bg-red-500"},
+    { name: 'React', level: 80 ,bg:"bg-purple-500"},
+    { name: 'CSS', level: 60 ,bg:"bg-custom-teal"},
+    { name: 'Tailwind CSS', level: 75 ,bg:"bg-custom-green"},
+    { name: 'Api Integration', level: 60 ,bg:"bg-custom-orange"},
+  ];
 
 const projects = [
     {
