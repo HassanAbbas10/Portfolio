@@ -39,9 +39,18 @@ const Projects = () => {
                 <CardItem
                   as="p"
                   translateZ="60"
-                  className="max-w-sm p-2 mt-1 text-sm text-black rounded-xl bg-custom-orange dark:text-neutral-300"
+                  className="max-w-sm p-2 mt-1 text-sm text-black rounded-xl  dark:text-neutral-300"
                 >
-                  {proj.status}
+                  <span 
+                    className={`
+                      px-3 py-1 rounded-full text-sm font-medium
+                      ${proj.status === 'Completed' 
+                        ? 'bg-green-900 text-green-400' 
+                        : 'bg-yellow-900 text-yellow-400'}
+                    `}
+                  >
+                    {proj.status}
+                  </span>
                 </CardItem>
               </div>
               <div className="flex items-center justify-between mt-4">
