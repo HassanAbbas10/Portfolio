@@ -27,7 +27,7 @@ const projects = [
     gitrepo: "https://github.com/HassanAbbas10/DevShop.git",
     livelink: "https://dev-shop10.netlify.app/",
     status: "Completed",
-    technologies: ["React", "JavaScript", "Tailwind","Axios"]
+    technologies: ["React", "JavaScript", "Tailwind","Axios","ReactRouter"]
   },
   {
     id: 2,
@@ -37,7 +37,7 @@ const projects = [
     gitrepo: "https://github.com/HassanAbbas10/Word-Stock.git",
     livelink: "https://word-stock.netlify.app/",
     status: "Completed",
-    technologies: ["React", "JavaScript", "Tailwind"]
+    technologies: ["React", "JavaScript", "Tailwind","Axios","ReactRouter"]
   },
   {
     id: 3,
@@ -47,7 +47,17 @@ const projects = [
     gitrepo: "https://github.com/HassanAbbas10/Domain-Jourdan.git",
     livelink: "https://domain-jourdan.netlify.app/",
     status: "Completed",
-    technologies: ["React", "Tailwind","JavaScript"]
+    technologies: ["React", "Tailwind","JavaScript","ReactRouter"]
+  },
+  {
+    id: 4,
+    picture: dj,
+    heading: "Domain Jourdan",
+    description: "From Figma to UI using Tailwind,Functionality needs to be added",
+    gitrepo: "https://github.com/HassanAbbas10/Domain-Jourdan.git",
+    livelink: "https://domain-jourdan.netlify.app/",
+    status: "Completed",
+    technologies: ["React", "Tailwind","JavaScript","ReactRouter"]
   },
 ];
 export default projects;
