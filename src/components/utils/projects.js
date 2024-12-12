@@ -10,12 +10,19 @@ export const socialLinks = {
 };
 
 export const skill = [
-  { name: "JavaScript", level: 80, bg: "bg-red-500" },
-  { name: "React", level: 80, bg: "bg-blue-700" },
-  { name: "CSS", level: 60, bg: "bg-custom-teal" },
-  { name: "Tailwind CSS", level: 75, bg: "bg-custom-green" },
-  { name: "Api Integration", level: 60, bg: "bg-custom-orange" },
-  { name: "Redux", level: 64, bg: "bg-purple-600" },
+  { name: "JavaScript", level: 80, bg: "#F7DF1E" },
+  { name: "React", level: 90, bg: "#61DAFB" },
+  { name: "CSS", level: 60, bg: "#1572B6" },
+  { name: "Tailwind", level: 85, bg: "#38B2AC" },
+ 
+  { name: "Redux", level: 70, bg: "#764ABC" },
+  { name: "Node", level: 70, bg: "#339933" },
+
+  { name: "Database", level: 75, bg: "#FF4500" },
+  { name: "API", level: 80, bg: "#FF5733" },
+ 
+  { name: "Backend", level: 60, bg: "#6A5ACD" },
+  { name: "Frontend", level: 92, bg: "#EE6C4D" },
 ];
 
 const projects = [
