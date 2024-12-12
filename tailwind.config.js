@@ -61,5 +61,23 @@ export default {
       },
     },
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [
+    tailwindcssAnimate,
+    function ({ addBase, theme }) {
+      addBase({
+        '.swiper-pagination-bullet': {
+          backgroundColor: theme('colors.custom-teal'),
+          opacity: 0.7,
+        },
+        '.swiper-pagination-bullet-active': {
+          backgroundColor: theme('colors.custom-orange'),
+          opacity: 1,
+        },
+        '.swiper-button-next, .swiper-button-prev': {
+          color: theme('colors.custom-lavender'),
+        },
+      });
+    },
+  ]
+  
 };
