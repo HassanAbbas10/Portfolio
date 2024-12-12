@@ -27,26 +27,27 @@ const projects = [
     gitrepo: "https://github.com/HassanAbbas10/DevShop.git",
     livelink: "https://dev-shop10.netlify.app/",
     status: "Completed",
+    technologies: ["React", "JavaScript", "Tailwind"]
   },
   {
     id: 2,
     picture: bookshop,
     heading: "Word-Stock",
-    description:
-      "BookStore made with Google Books api with search functionality",
+    description: "BookStore made with Google Books api with search functionality",
     gitrepo: "https://github.com/HassanAbbas10/Word-Stock.git",
     livelink: "https://word-stock.netlify.app/",
     status: "Completed",
+    technologies: ["React", "JavaScript", "Tailwind"]
   },
   {
     id: 3,
     picture: dj,
     heading: "Domain Jourdan",
-    description:
-      "From Figma to UI using Tailwind,Functionality needs to be added",
+    description: "From Figma to UI using Tailwind,Functionality needs to be added",
     gitrepo: "https://github.com/HassanAbbas10/Domain-Jourdan.git",
     livelink: "https://domain-jourdan.netlify.app/",
-    status: "Development",
+    status: "Completed",
+    technologies: ["React", "Tailwind","JavaScript"]
   },
 ];
 export default projects;
