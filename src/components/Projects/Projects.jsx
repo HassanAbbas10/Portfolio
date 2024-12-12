@@ -3,7 +3,7 @@ import projects from "../utils/projects";
 import { 
   SiReact, SiTailwindcss, SiJavascript, SiNodedotjs, SiNextdotjs, 
   SiPython, SiDjango, SiTypescript, SiGraphql, SiDocker, 
-  SiMongodb, SiPostgresql, SiRedux, SiExpress, 
+  SiMongodb, SiPostgresql, SiRedux, SiExpress,SiAxios,
 } from "react-icons/si";
 
 // Mapping of technology names to their respective icons
@@ -22,6 +22,7 @@ const techIcons = {
   PostgreSQL: SiPostgresql,
   Redux: SiRedux,
   Express: SiExpress,
+  Axios:SiAxios,
   
 };
 

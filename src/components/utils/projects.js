@@ -27,7 +27,7 @@ const projects = [
     gitrepo: "https://github.com/HassanAbbas10/DevShop.git",
     livelink: "https://dev-shop10.netlify.app/",
     status: "Completed",
-    technologies: ["React", "JavaScript", "Tailwind"]
+    technologies: ["React", "JavaScript", "Tailwind","Axios"]
   },
   {
     id: 2,
