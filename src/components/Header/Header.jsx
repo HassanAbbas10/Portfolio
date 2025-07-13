@@ -12,6 +12,9 @@ const Header = () => {
           <Link to="about" smooth={true} duration={500} className="duration-500 font-quicksand hover:text-custom-orange">About</Link>
         </li>
         <li>
+          <Link to="experience" smooth={true} duration={500} className="duration-500 font-quicksand hover:text-custom-orange">Experience</Link>
+        </li>
+        <li>
           <Link to="projects" smooth={true} duration={500} className="duration-500 font-quicksand hover:text-custom-orange">Projects</Link>
         </li>
         <li>

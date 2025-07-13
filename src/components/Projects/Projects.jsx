@@ -1,4 +1,4 @@
-import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
+import { motion } from "framer-motion";
 import projects from "../utils/projects";
 import { 
   SiReact, SiTailwindcss, SiJavascript, SiNodedotjs, SiNextdotjs, 
@@ -32,12 +32,72 @@ const techIcons = {
 };
 
 const Projects = () => {
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        duration: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+        duration: 0.4
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, rotateY: -15 },
+    visible: {
+      opacity: 1,
+      rotateY: 0,
+      transition: {
+        type: "spring",
+        stiffness: 80,
+        damping: 20,
+        duration: 0.5
+      }
+    }
+  };
+
   return (
     <>
-      <div className="mx-auto text-center sm:mt-0 mt-32">
-        <h2 className="text-4xl font-bold uppercase text-custom-teal font-quicksand">Projects</h2>
-      </div>
-      <div className="w-full px-4 py-8">
+      <motion.div 
+        className="mx-auto text-center sm:mt-0 mt-32"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={containerVariants}
+      >
+        <motion.h2 
+          className="text-4xl font-bold uppercase text-custom-teal font-quicksand"
+          variants={itemVariants}
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.2 }}
+        >
+          Projects
+        </motion.h2>
+      </motion.div>
+      <motion.div 
+        className="w-full px-4 py-8"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={containerVariants}
+      >
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={30}
@@ -62,15 +122,33 @@ const Projects = () => {
       >
         {projects.map((proj) => (
           <SwiperSlide key={proj.id} className="pb-12">
-            <div className="gap-6 p-4">
-              <div className="gap-10 duration-500 relative group/card hover:shadow-2xl hover:shadow-emerald-700/[0.5] bg-black border-white/[0.2] w-full h-auto rounded-xl p-4 border">
-                <div className="w-full">
+            <motion.div 
+              className="gap-6 p-4"
+              variants={cardVariants}
+              whileHover={{ 
+                y: -10,
+                transition: { duration: 0.3 }
+              }}
+            >
+              <motion.div 
+                className="gap-10 duration-500 relative group/card hover:shadow-2xl hover:shadow-emerald-700/[0.5] bg-black border-white/[0.2] w-full h-auto rounded-xl p-4 border"
+                whileHover={{ 
+                  scale: 1.02,
+                  boxShadow: "0 25px 50px -12px rgba(16, 185, 129, 0.3)",
+                  transition: { duration: 0.3 }
+                }}
+              >
+                <motion.div 
+                  className="w-full"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <img
                     src={proj.picture}
                     className="object-cover w-full h-60 rounded-xl group-hover/card:shadow-xl"
                     alt="thumbnail"
                   />
-                </div>
+                </motion.div>
                 
                 {/* Project Heading */}
                 <div className="flex items-center justify-center">
@@ -123,27 +201,37 @@ const Projects = () => {
                 {/* Project Links */}
                 <div className="flex items-center justify-between mt-4">
                   {proj.gitrepo && (
-                    <button className="rounded-full flex h-10 animate-shimmer items-center justify-center border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-4 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+                    <motion.button 
+                      className="rounded-full flex h-10 animate-shimmer items-center justify-center border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-4 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                    >
                       <a href={proj.gitrepo} target="_blank" rel="noopener noreferrer" className="text-sm">
                         Repo Link
                       </a>
-                    </button>
+                    </motion.button>
                   )}
                   
                   {proj.livelink && (
-                    <button className="rounded-full flex h-10 animate-shimmer items-center justify-center border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-4 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+                    <motion.button 
+                      className="rounded-full flex h-10 animate-shimmer items-center justify-center border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-4 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                    >
                       <a href={proj.livelink} target="_blank" rel="noopener noreferrer" className="text-sm">
                         Live Link
                       </a>
-                    </button>
+                    </motion.button>
                   )}
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </motion.div>
     </>
   );
 };

@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { motion } from "framer-motion";
 import {
   FaCode,
   FaDatabase,
@@ -19,7 +20,7 @@ import {
   SiCss3,
 } from "react-icons/si";
 
-const SkillCircle = ({ skill }) => {
+const SkillCircle = ({ skill, index }) => {
   // Map skill names to appropriate icons
   const iconMap = {
     React: SiReact,
@@ -41,9 +42,26 @@ const SkillCircle = ({ skill }) => {
   const SkillIcon = iconMap[skill.name] || FaCode;
 
   return (
-    <div className="flex flex-col items-center justify-center rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-      <div className="relative w-28 h-28 mb-4" style={{ color: skill.bg }}>
-        {/* Circular background */}
+    <motion.div 
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ 
+        duration: 0.3, 
+        delay: index * 0.1
+      }}
+      whileHover={{ 
+        y: -10,
+        transition: { duration: 0.2 }
+      }}
+      className="flex flex-col items-center justify-center rounded-full shadow-lg hover:shadow-2xl transition-all duration-300"
+    >
+      <motion.div 
+        className="relative w-28 h-28 mb-4" 
+        style={{ color: skill.bg }}
+        whileHover={{ scale: 1.1 }}
+        transition={{ duration: 0.3 }}
+      >
         <svg
           className="absolute top-0 left-0 w-full h-full"
           viewBox="0 0 36 36"
@@ -57,29 +75,52 @@ const SkillCircle = ({ skill }) => {
             strokeWidth="3"
             strokeOpacity="0.3"
           />
-          <path
+          <motion.path
             d="M18 2.0845
               a 15.9155 15.9155 0 0 1 0 31.831
               a 15.9155 15.9155 0 0 1 0 -31.831"
             fill="none"
             stroke="currentColor"
             strokeWidth="3"
-            strokeDasharray={`${skill.level}, 100`}
+            initial={{ strokeDasharray: "0, 100" }}
+            whileInView={{ strokeDasharray: `${skill.level}, 100` }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, delay: index * 0.1 + 0.5 }}
           />
         </svg>
 
         {/* Skill Icon */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <SkillIcon className="w-16 h-12" strokeWidth={1.5} />
-        </div>
-      </div>
+        <motion.div 
+          className="absolute inset-0 flex items-center justify-center"
+          initial={{ scale: 0 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: index * 0.1 + 0.2, duration: 0.3 }}
+        >
+          <SkillIcon className="w-8 h-8" />
+        </motion.div>
+      </motion.div>
 
       {/* Skill Details */}
-      <div className="text-center">
-        <h3 className="text-xl font-semibold text-white mb-1">{skill.name}</h3>
-       
-      </div>
-    </div>
+      <motion.div 
+        className="text-center"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.1 + 0.3, duration: 0.3 }}
+      >
+        <h3 className="text-xl font-semibold text-white mb-1 font-quicksand">{skill.name}</h3>
+        <motion.div 
+          className="text-sm text-gray-400 font-quicksand"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: index * 0.1 + 0.4, duration: 0.3 }}
+        >
+          {skill.level}%
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 
@@ -87,12 +128,18 @@ const Skills = ({ skilles }) => {
   return (
     <section className="w-full py-16 bg-gradient-to-br from-black via-black to-black">
       <div className="container mx-auto px-4">
-        <h2 className="text-5xl font-bold text-center text-custom-teal mb-12 tracking-wide uppercase font-quicksand">
+        <motion.h2 
+          className="text-5xl font-bold text-center text-custom-teal mb-12 tracking-wide uppercase font-quicksand"
+          initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+        >
           My Skills
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-          {skilles.map((skill) => (
-            <SkillCircle  key={skill.name} skill={skill} />
+        </motion.h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+          {skilles.map((skill, index) => (
+            <SkillCircle key={skill.name} skill={skill} index={index} />
           ))}
         </div>
       </div>
