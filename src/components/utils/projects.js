@@ -72,7 +72,7 @@ export const experiences = [
   {
     id: 1,
     title: "MERN Stack Developer",
-    company: "Virtual Soft SMC",
+    company: "Void Soft Technologies",
     location: "Rahim Yar Khan, Punjab",
     duration: "MAY 2025 – Present",
     description: "Currently Working on building a full Stack e commerce platform with admin dashboard for the Products Handling",
@@ -87,7 +87,7 @@ export const experiences = [
   {
     id: 2,
     title: "React Js Developer",
-    company: "Virtual Soft SMC",
+    company: "Void Soft Technologies",
     location: "Rahim Yar Khan, Punjab",
     duration: "FEB 2025 – May 2025",
     description: "Built responsive admin dashboard for broadcast app using React JS with Firebase backend for authentication and real-time data.",
@@ -152,7 +152,7 @@ export const testimonials = [
     id: 1,
     name: "Sarah Johnson",
     position: "Project Manager",
-    company: "Virtual Soft SMC",
+    company: "Void Soft Technologies",
     image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
     content: "Hassan delivered exceptional work on our e-commerce platform. His attention to detail and technical skills made him an invaluable team member.",
     rating: 5
