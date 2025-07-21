@@ -54,7 +54,7 @@ const SkillCircle = ({ skill, index }) => {
         y: -10,
         transition: { duration: 0.2 }
       }}
-      className="flex flex-col items-center justify-center rounded-full shadow-lg hover:shadow-2xl transition-all duration-300"
+      className=" w-36 h-36 p-2 border-t-2 flex flex-col items-center justify-center rounded-full shadow-md hover:shadow-lg hover:shadow-[rgba(255,255,255,0.3)] transition-all duration-100 bg-gradient-to-br from-gray-950 via-black to-gray-950 border-white shadow-[rgba(255,255,255,0.3)]"
     >
       <motion.div 
         className="relative w-28 h-28 mb-4" 
@@ -129,7 +129,7 @@ const Skills = ({ skilles }) => {
     <section className="w-full py-16 bg-gradient-to-br from-black via-black to-black">
       <div className="container mx-auto px-4">
         <motion.h2 
-          className="text-5xl font-bold text-center text-custom-teal mb-12 tracking-wide uppercase font-quicksand"
+          className="text-5xl font-bold text-center text-fuchsia-50 mb-12 tracking-wide uppercase font-quicksand"
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

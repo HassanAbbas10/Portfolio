@@ -10,7 +10,6 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-// Mapping of technology names to their respective icons
 const techIcons = {
   React: SiReact,
   Tailwind: SiTailwindcss,
@@ -75,15 +74,18 @@ const Projects = () => {
 
   return (
     <>
+    <div className="bg-gradient-to-br from-gray-950 via-black to-gray-950 pt-10"> 
+
+   
       <motion.div 
-        className="mx-auto text-center sm:mt-0 mt-32"
+        className="mx-auto text-center sm:mt-0 mt-32 "
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={containerVariants}
       >
         <motion.h2 
-          className="text-4xl font-bold uppercase text-custom-teal font-quicksand"
+          className="text-4xl font-bold uppercase text-fuchsia-50 font-quicksand"
           variants={itemVariants}
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.2 }}
@@ -92,11 +94,12 @@ const Projects = () => {
         </motion.h2>
       </motion.div>
       <motion.div 
-        className="w-full px-4 py-8"
+        className="w-full px-4 py-8 "
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={containerVariants}
+        
       >
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
@@ -232,6 +235,7 @@ const Projects = () => {
         ))}
       </Swiper>
     </motion.div>
+     </div>
     </>
   );
 };

@@ -20,6 +20,8 @@ export default {
     },
     extend: {
       colors: {
+        'dark-charcoal': '#1a1a1a',
+        'electric-crimson': '#ff0040',
 'custom-green': '#37c898',
 'custom-orange': '#fe9958',
 'custom-teal': '#5ec0cf',
@@ -28,7 +30,7 @@ export default {
 'custom-aqua': '#00ffcc',
 'custom-coral': '#ff6b6b',
 'custom-sky': '#4fc3f7',
-'custom-fuchsia': '#ff00ff',
+'custom-fuchsia': '#b19cd9',
 'custom-emerald': '#00cb7c',
 'custom-amber': '#ffa726',
 'custom-royal-blue': '#3b82f6',
@@ -39,7 +41,8 @@ export default {
 'custom-turquoise': '#40e0d0',
 'custom-gold': '#ffd700',
 'custom-electric-blue': '#7df9ff',
-'custom-hot-pink': '#ff69b4'
+'custom-hot-pink': '#ff69b4',
+
       },
       fontFamily: {
         cormorant: ["Cormorant Garamond", "serif"],

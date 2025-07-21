@@ -11,7 +11,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 const Layout = () => {
   
   return (
-    <div className="bg-black app">
+    <div className="bg-gradient-to-br from-gray-950 via-black to-gray-950 app">
       <Header />
       <Outlet />
       <Footer />
