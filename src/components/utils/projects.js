@@ -83,6 +83,15 @@ const projects = [
     category: "Fullstack",
     technologies: ["Node", "Express", "MongoDB", "JavaScript"],
   },
+    {
+    id: 5,
+    picture: shop,
+    heading: "Eventify",
+    description: "Event Ticketing Platform with Stripe payment gateway with Admin Dashboard in React",
+    status: "Completed",
+    category: "Mobile",
+    technologies: ["React", "CSS", "Stripe", "Axios", "Android","Tailwind","Node","Firebase"],
+  },
 ]
 
 

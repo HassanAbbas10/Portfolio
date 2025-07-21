@@ -19,6 +19,10 @@ import {
   SiExpress,
   SiAxios,
   SiReactrouter,
+  SiCss3,
+  SiStripe,
+  SiAndroidstudio,
+  SiFirebase,
 } from "react-icons/si"
 
 const techIcons = {
@@ -38,7 +42,14 @@ const techIcons = {
   Express: SiExpress,
   Axios: SiAxios,
   ReactRouter: SiReactrouter,
+  CSS:SiCss3,
+  Stripe:SiStripe,
+  Android:SiAndroidstudio,
+  Firebase:SiFirebase,
+
+
 }
+
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("All")
@@ -225,13 +236,13 @@ const Projects = () => {
                     </div>
 
                     {/* Tech Stack Icons */}
-                    <div className="flex items-center justify-center gap-3 mt-4">
+                    <div className="flex flex-wrap items-center justify-center gap-2 mt-4 px-4 max-w-full">
                       {proj.technologies.map((tech, index) => {
                         const IconComponent = techIcons[tech]
                         return IconComponent ? (
                           <div
                             key={index}
-                            className="p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition-all duration-300"
+                            className="p-1.5 bg-gray-800 rounded-full hover:bg-gray-700 transition-all duration-300 flex-shrink-0"
                             title={tech}
                           >
                             <IconComponent className="w-6 h-6 text-custom-deep-purple" />
