@@ -1,4 +1,4 @@
-import { dj, bookshop, shop } from "../../assets/index";
+import { dj, bookshop, shop, Farm,Paradise,Eventify,Slideshare,Exclusive, FullStackEco } from "../../assets/index";
 
 export const words = ["I am a React Js Developer", "Specializing in Front-end"];
 
@@ -61,37 +61,58 @@ const projects = [
     category: "WEB",
     technologies: ["React", "Tailwind", "JavaScript", "ReactRouter"],
   },
-  {
-    id: 4,
-    picture: dj,
-    heading: "E-Commerce Platform",
-    description: "Full-stack e-commerce platform with admin dashboard and payment integration",
-    gitrepo: "https://github.com/HassanAbbas10/Portfolio.git",
-    livelink: "https://hassan-portfolio.netlify.app/",
-    status: "In Progress",
-    category: "Fullstack",
-    technologies: ["React", "Node", "Express", "MongoDB", "Tailwind"],
-  },
+
   {
     id: 5,
-    picture: shop,
-    heading: "Task Management API",
-    description: "RESTful API for task management with authentication and real-time updates",
-    gitrepo: "https://github.com/HassanAbbas10/task-api.git",
-    livelink: null,
+    picture: Paradise,
+    heading: "Prize Paradise",
+    description: "Perfectky replicate the UI of the prize paradise website",
+    livelink: "https://uk-paradise.netlify.app/",
     status: "Completed",
-    category: "Fullstack",
-    technologies: ["Node", "Express", "MongoDB", "JavaScript"],
+    category: "WEB",
+    technologies: ["ReactRouter", "Tailwind", "React", "JavaScript"],
   },
     {
-    id: 5,
-    picture: shop,
+    id: 6,
+    picture: Eventify,
     heading: "Eventify",
     description: "Event Ticketing Platform with Stripe payment gateway with Admin Dashboard in React",
     status: "Completed",
     category: "Mobile",
     technologies: ["React", "CSS", "Stripe", "Axios", "Android","Tailwind","Node","Firebase"],
   },
+    {
+    id: 7,
+    picture: Slideshare,
+    heading: "Slideshare",
+    description: "Made better UI of the slideshare Website",
+    livelink: 'https://slideshare10.netlify.app/',
+    status: "Completed",
+    category: "WEB",
+    technologies: ["ReactRouter", "Tailwind", "React", "JavaScript"],
+  },
+  {
+     id: 8,
+    picture: Exclusive,
+    heading: "Exclusive Store",
+    description: "FrontEnd of the E commerce Website",
+    livelink: 'https://exclusive-task10.netlify.app/',
+    status: "Completed",
+    category: "WEB",
+    technologies: ["ReactRouter", "Tailwind", "React", "JavaScript"],
+
+  },
+      {
+    id: 9,
+    picture: FullStackEco,
+    heading: "Full Stack Ecommerce Dashboard",
+    description: "Beautiful and Robust Admin Dashboard for the E-commerce Website",
+    livelink: 'none',
+    status: "In Progress",
+    category: "Fullstack",
+     technologies: ["React", "Node", "Express", "MongoDB", "Tailwind" , "Axios"],
+  },
+
 ]
 
 
@@ -141,23 +162,9 @@ export const experiences = [
     ],
     technologies: ["React", "JavaScript", "CSS", "UI/UX", "Frontend"]
   },
+  
   {
     id: 4,
-    title: "React JS Seasonal Developer",
-    company: "Chingu",
-    location: "Remote",
-    duration: "JULY 2024 – AUG 2024",
-    description: "Developed custom 404 page and dynamic map interface for food restaurant website, collaborating internationally via Scrum/Jira.",
-    achievements: [
-      "Developed custom 404 page with engaging user experience",
-      "Created dynamic map interface for restaurant location services",
-      "Collaborated internationally using Scrum methodology",
-      "Managed project tasks efficiently through Jira"
-    ],
-    technologies: ["React", "JavaScript", "Maps API", "Scrum", "Jira"]
-  },
-  {
-    id: 5,
     title: "React JS Intern",
     company: "Agentech",
     location: "Rahim Yar Khan, Punjab",

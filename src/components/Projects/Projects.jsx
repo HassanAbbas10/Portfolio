@@ -175,7 +175,7 @@ const Projects = () => {
             <AnimatePresence mode="wait">
               <motion.div 
                 key={activeFilter}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-8xl mx-auto"
                 layout
                 initial="hidden"
                 animate="visible"
@@ -251,20 +251,7 @@ const Projects = () => {
                       })}
                     </div>
 
-                    {/* Project Links */}
-                    <div className="flex items-center justify-between mt-4">
-                      {proj.gitrepo && (
-                        <motion.button
-                          className="rounded-full flex h-10 animate-shimmer items-center justify-center border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-4 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <a href={proj.gitrepo} target="_blank" rel="noopener noreferrer" className="text-sm">
-                            Repo Link
-                          </a>
-                        </motion.button>
-                      )}
+                 <div className="flex items-center justify-center pt-6">
                       {proj.livelink && (
                         <motion.button
                           className="rounded-full flex h-10 animate-shimmer items-center justify-center border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-4 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
