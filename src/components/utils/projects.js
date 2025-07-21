@@ -25,6 +25,8 @@ export const skill = [
   { name: "Frontend", level: 92, bg: "#EE6C4D" },
 ];
 
+
+
 const projects = [
   {
     id: 1,
@@ -34,7 +36,8 @@ const projects = [
     gitrepo: "https://github.com/HassanAbbas10/DevShop.git",
     livelink: "https://dev-shop10.netlify.app/",
     status: "Completed",
-    technologies: ["React", "JavaScript", "Tailwind","Axios","ReactRouter"]
+    category: "WEB",
+    technologies: ["React", "JavaScript", "Tailwind", "Axios", "ReactRouter"],
   },
   {
     id: 2,
@@ -44,30 +47,45 @@ const projects = [
     gitrepo: "https://github.com/HassanAbbas10/Word-Stock.git",
     livelink: "https://word-stock.netlify.app/",
     status: "Completed",
-    technologies: ["React", "JavaScript", "Tailwind","Axios","ReactRouter"]
+    category: "WEB",
+    technologies: ["React", "JavaScript", "Tailwind", "Axios", "ReactRouter"],
   },
   {
     id: 3,
     picture: dj,
     heading: "Domain Jourdan",
-    description: "From Figma to UI using Tailwind,Functionality needs to be added",
+    description: "From Figma to UI using Tailwind, Functionality needs to be added",
     gitrepo: "https://github.com/HassanAbbas10/Domain-Jourdan.git",
     livelink: "https://domain-jourdan.netlify.app/",
     status: "Completed",
-    technologies: ["React", "Tailwind","JavaScript","ReactRouter"]
+    category: "WEB",
+    technologies: ["React", "Tailwind", "JavaScript", "ReactRouter"],
   },
   {
     id: 4,
     picture: dj,
-    heading: "Domain Jourdan",
-    description: "From Figma to UI using Tailwind,Functionality needs to be added",
-    gitrepo: "https://github.com/HassanAbbas10/Domain-Jourdan.git",
-    livelink: "https://domain-jourdan.netlify.app/",
-    status: "Completed",
-    technologies: ["React", "Tailwind","JavaScript","ReactRouter"]
+    heading: "E-Commerce Platform",
+    description: "Full-stack e-commerce platform with admin dashboard and payment integration",
+    gitrepo: "https://github.com/HassanAbbas10/Portfolio.git",
+    livelink: "https://hassan-portfolio.netlify.app/",
+    status: "In Progress",
+    category: "Fullstack",
+    technologies: ["React", "Node", "Express", "MongoDB", "Tailwind"],
   },
-];
-// Work Experience Data
+  {
+    id: 5,
+    picture: shop,
+    heading: "Task Management API",
+    description: "RESTful API for task management with authentication and real-time updates",
+    gitrepo: "https://github.com/HassanAbbas10/task-api.git",
+    livelink: null,
+    status: "Completed",
+    category: "Fullstack",
+    technologies: ["Node", "Express", "MongoDB", "JavaScript"],
+  },
+]
+
+
 export const experiences = [
   {
     id: 1,
