@@ -97,9 +97,9 @@ const Experience = memo(() => {
 					viewport={{ once: true, margin: "-100px" }}
 					className="relative max-w-4xl mx-auto"
 				>
+					{/* Timeline line - responsive positioning */}
 					<div
-						className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-white opacity-35"
-						style={{ marginLeft: "-1px" }}
+						className="absolute top-0 bottom-0 w-0.5 bg-white opacity-35 left-4 md:left-1/2 md:-ml-px"
 					></div>
 
 					{experiences.map((exp, index) => (
@@ -108,19 +108,20 @@ const Experience = memo(() => {
 							variants={index % 2 === 0 ? itemVariants : itemVariantsReverse}
 							className="relative mb-12 last:mb-0"
 						>
+							{/* Timeline node - responsive positioning */}
 							<motion.div
-								className="absolute w-4 h-4 bg-custom-green rounded-full border-2 border-white shadow-lg z-10"
+								className="absolute w-4 h-4 bg-custom-green rounded-full border-2 border-white shadow-lg z-10 left-2 md:left-1/2 md:-ml-2"
 								style={{
-									left: "50%",
 									top: "1rem",
-									marginLeft: "-8px",
 								}}
 								variants={nodeVariants}
 								whileHover={{ scale: 1.3 }}
 								transition={{ duration: 0.2 }}
 							></motion.div>
+							
+							{/* Content container - responsive layout */}
 							<div
-								className={`flex ${index % 2 === 0 ? "justify-start pr-8" : "justify-end pl-8"}`}
+								className={`pl-12 md:pl-0 md:flex ${index % 2 === 0 ? "md:justify-start md:pr-8" : "md:justify-end md:pl-8"}`}
 							>
 								<div className="w-full md:w-96">
 									<motion.div

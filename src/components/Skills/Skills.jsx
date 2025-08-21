@@ -128,7 +128,7 @@ const SkillCircle = ({ skill, index }) => {
 
 const Skills = ({ skilles }) => {
 	return (
-		<section className="w-full py-16 bg-gradient-to-br from-black via-black to-black">
+		<section className="w-full py-16 bg-gradient-to-br from-black via-black to-black lg:mx-0 sm:mx-0 px-14 mx-auto">
 			<div className="container mx-auto px-4">
 				<motion.h2
 					className="text-5xl font-bold text-center text-fuchsia-50 mb-12 tracking-wide uppercase font-quicksand"

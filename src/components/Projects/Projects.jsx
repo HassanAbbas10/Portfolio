@@ -142,13 +142,13 @@ const Projects = () => {
 
 					{/* Filter Buttons */}
 					<motion.div
-						className="flex justify-center gap-4 mt-8 mb-8"
+						className="flex flex-wrap justify-center gap-2 sm:gap-4 mt-8 mb-8 px-4"
 						variants={containerVariants}
 					>
 						{availableFilters.map((filter) => (
 							<motion.button
 								key={filter}
-								className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
+								className={`px-3 sm:px-6 py-2 rounded-full font-medium transition-all duration-300 text-sm sm:text-base ${
 									activeFilter === filter
 										? "bg-custom-green text-black"
 										: "bg-gray-800 text-white hover:bg-gray-700"
@@ -165,7 +165,7 @@ const Projects = () => {
 				</motion.div>
 
 				<motion.div
-					className="w-full px-4 py-8"
+					className="w-full px-2 sm:px-4 py-8"
 					initial="hidden"
 					whileInView="visible"
 					viewport={{ once: true }}
@@ -176,7 +176,7 @@ const Projects = () => {
 						<AnimatePresence mode="wait">
 							<motion.div
 								key={activeFilter}
-								className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-8xl mx-auto"
+								className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-8xl mx-auto"
 								layout
 								initial="hidden"
 								animate="visible"
@@ -186,7 +186,7 @@ const Projects = () => {
 								{filteredProjects.map((proj) => (
 									<motion.div
 										key={`${activeFilter}-${proj.id}`}
-										className="gap-6 p-4"
+										className="w-full"
 										variants={cardVariants}
 										whileHover={{
 											y: -10,
@@ -198,7 +198,7 @@ const Projects = () => {
 										exit="hidden"
 									>
 										<motion.div
-											className="gap-10 duration-500 relative group/card hover:shadow-2xl hover:shadow-emerald-700/[0.5] bg-black border-white/[0.2] w-full h-auto rounded-xl p-4 border"
+											className="relative group/card hover:shadow-2xl hover:shadow-emerald-700/[0.5] bg-black border-white/[0.2] w-full h-auto rounded-xl p-3 sm:p-4 border"
 											whileHover={{
 												scale: 1.02,
 												boxShadow: "0 25px 50px -12px rgba(16, 185, 129, 0.3)",
@@ -212,21 +212,21 @@ const Projects = () => {
 											>
 												<img
 													src={proj.picture || "/placeholder.svg"}
-													className="object-cover w-full h-60 rounded-xl group-hover/card:shadow-xl"
+													className="object-cover w-full h-48 sm:h-60 rounded-xl group-hover/card:shadow-xl"
 													alt="thumbnail"
 												/>
 											</motion.div>
 
 											{/* Project Heading */}
 											<div className="flex items-center justify-center">
-												<div className="mt-4 text-xl font-bold font-quicksand text-custom-green">
+												<div className="mt-3 sm:mt-4 text-lg sm:text-xl font-bold font-quicksand text-custom-green text-center">
 													{proj.heading}
 												</div>
 											</div>
 
 											{/* Project Description */}
 											<div className="flex items-center justify-center">
-												<p className="max-w-sm mt-2 text-white text-md font-cormorant">
+												<p className="max-w-sm mt-2 text-white text-sm sm:text-md font-cormorant text-center px-2">
 													{proj.description}
 												</p>
 											</div>
@@ -235,7 +235,7 @@ const Projects = () => {
 											<div className="flex items-center justify-center">
 												<div className="max-w-sm p-2 mt-1 text-sm text-black rounded-xl dark:text-neutral-300">
 													<span
-														className={`px-3 py-1 rounded-full text-sm font-medium ${
+														className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${
 															proj.status === "Completed"
 																? "bg-green-900 text-green-400"
 																: "bg-yellow-900 text-yellow-400"
@@ -247,25 +247,25 @@ const Projects = () => {
 											</div>
 
 											{/* Tech Stack Icons */}
-											<div className="flex flex-wrap items-center justify-center gap-2 mt-4 px-4 max-w-full">
+											<div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-3 sm:mt-4 px-2 sm:px-4 max-w-full">
 												{proj.technologies.map((tech, index) => {
 													const IconComponent = techIcons[tech];
 													return IconComponent ? (
 														<div
 															key={index}
-															className="p-1.5 bg-gray-800 rounded-full hover:bg-gray-700 transition-all duration-300 flex-shrink-0"
+															className="p-1 sm:p-1.5 bg-gray-800 rounded-full hover:bg-gray-700 transition-all duration-300 flex-shrink-0"
 															title={tech}
 														>
-															<IconComponent className="w-6 h-6 text-custom-deep-purple" />
+															<IconComponent className="w-4 h-4 sm:w-6 sm:h-6 text-custom-deep-purple" />
 														</div>
 													) : null;
 												})}
 											</div>
 
-											<div className="flex items-center justify-center pt-6">
+											<div className="flex items-center justify-center pt-4 sm:pt-6">
 												{proj.livelink && (
 													<motion.button
-														className="rounded-full flex h-10 animate-shimmer items-center justify-center border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-4 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+														className="rounded-full flex h-8 sm:h-10 animate-shimmer items-center justify-center border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-3 sm:px-4 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
 														whileHover={{ scale: 1.05 }}
 														whileTap={{ scale: 0.95 }}
 														transition={{ duration: 0.2 }}
@@ -274,7 +274,7 @@ const Projects = () => {
 															href={proj.livelink}
 															target="_blank"
 															rel="noopener noreferrer"
-															className="text-sm"
+															className="text-xs sm:text-sm"
 														>
 															Live Link
 														</a>
