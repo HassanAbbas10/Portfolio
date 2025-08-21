@@ -1,11 +1,12 @@
-import { Typewriter } from 'react-simple-typewriter';
-import { motion } from 'framer-motion';
-import { lazy, Suspense, memo } from 'react';
-import { words } from '../utils/projects';
+import { Typewriter } from "react-simple-typewriter";
+import { motion } from "framer-motion";
+import { lazy, Suspense, memo } from "react";
+import { words } from "../utils/projects";
+import BlurText from "../ui/TextAnimations/BlurText/BlurText";
 
 // Lazy load heavy components
-const LottieAni = lazy(() => import('../Lottie/LottieAni'));
-const SocialLinks = lazy(() => import('../Socials/SocialLinks '));
+const LottieAni = lazy(() => import("../Lottie/LottieAni"));
+const SocialLinks = lazy(() => import("../Socials/SocialLinks "));
 
 const About = memo(() => {
   const containerVariants = {
@@ -15,9 +16,9 @@ const About = memo(() => {
       transition: {
         staggerChildren: 0.1, // Reduced from 0.2
         duration: 0.2, // Reduced from 0.3
-        ease: "easeOut"
-      }
-    }
+        ease: "easeOut",
+      },
+    },
   };
 
   const itemVariants = {
@@ -27,9 +28,9 @@ const About = memo(() => {
       y: 0,
       transition: {
         duration: 0.4, // Slightly increased for smoothness
-        ease: "easeOut" // More performant than spring
-      }
-    }
+        ease: "easeOut", // More performant than spring
+      },
+    },
   };
 
   const imageVariants = {
@@ -39,13 +40,13 @@ const About = memo(() => {
       scale: 1,
       transition: {
         duration: 0.5,
-        ease: "easeOut"
-      }
-    }
+        ease: "easeOut",
+      },
+    },
   };
 
   return (
-    <motion.section 
+    <motion.section
       className="w-full h-screen mt-10 bg-gradient-to-br from-gray-950 via-black to-gray-950"
       initial="hidden"
       whileInView="visible"
@@ -53,28 +54,40 @@ const About = memo(() => {
       variants={containerVariants}
     >
       <div className="mx-auto text-center">
-        <motion.h2 
+        <motion.h2
           className="text-4xl font-bold uppercase text-fuchsia-50 font-quicksand pt-8"
           variants={itemVariants}
         >
-          About Me
+          <BlurText
+            text="About"
+            delay={150}
+            animateBy="letters"
+            direction="top"
+            className="text-3xl mb-8 flex justify-center items-center"
+          />
         </motion.h2>
-        
+
         <div className="container mx-auto flex flex-col md:flex-row items-center px-5 py-10">
-          <motion.div 
+          <motion.div
             className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-6 md:mb-0 items-center text-center"
             variants={itemVariants}
           >
-            <motion.h1 
+            <motion.h1
               className="title-font sm:text-4xl text-3xl mb-4 font-medium font-quicksand text-gray-300"
               variants={itemVariants}
               whileHover={{ scale: 1.01 }} // Reduced from 1.02
               transition={{ duration: 0.15 }} // Faster hover
             >
-              Hello, My Name is Hassan Abbas
+              <BlurText
+                text=" Hello, My Name is Hassan Abbas"
+                delay={150}
+                animateBy="words"
+                direction="top"
+                className="text-3xl flex justify-center items-center"
+              />
             </motion.h1>
-            
-            <motion.div 
+
+            <motion.div
               className="text-3xl text-custom-orange font-quicksand font-extrabold h-12" // Fixed height prevents layout shift
               variants={itemVariants}
             >
@@ -88,32 +101,42 @@ const About = memo(() => {
                 delaySpeed={2000}
               />
             </motion.div>
-            
-            <motion.p 
+
+            <motion.p
               className="title-font sm:text-xl text-xl mb-4 font-medium font-quicksand text-gray-300 my-8"
               variants={itemVariants}
             >
-              Currently Working on Projects and My focus is on MERN Stack
+              <BlurText
+                text=" Currently Working on Projects and My focus is on MERN Stack"
+                delay={150}
+                animateBy="words"
+                direction="top"
+                className="text-xl flex justify-center items-center"
+              />
             </motion.p>
-            
+
             <motion.div variants={itemVariants}>
-              <Suspense fallback={
-                <div className="w-32 h-8 bg-gray-800 animate-pulse rounded" />
-              }>
+              <Suspense
+                fallback={
+                  <div className="w-32 h-8 bg-gray-800 animate-pulse rounded" />
+                }
+              >
                 <SocialLinks />
               </Suspense>
             </motion.div>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6"
             variants={imageVariants}
             whileHover={{ scale: 1.02 }} // Reduced from 1.05, removed rotate
             transition={{ duration: 0.2 }}
           >
-            <Suspense fallback={
-              <div className="w-full aspect-square bg-gray-800 animate-pulse rounded-lg" />
-            }>
+            <Suspense
+              fallback={
+                <div className="w-full aspect-square bg-gray-800 animate-pulse rounded-lg" />
+              }
+            >
               <LottieAni />
             </Suspense>
           </motion.div>
@@ -123,6 +146,6 @@ const About = memo(() => {
   );
 });
 
-About.displayName = 'About';
+About.displayName = "About";
 
 export default About;

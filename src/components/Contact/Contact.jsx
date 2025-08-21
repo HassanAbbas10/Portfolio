@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, User, Mail, MessageCircle } from "lucide-react";
-
+import BlurText from "../ui/TextAnimations/BlurText/BlurText";
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -16,9 +16,9 @@ const Contact = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.2,
-        duration: 0.3
-      }
-    }
+        duration: 0.3,
+      },
+    },
   };
 
   const itemVariants = {
@@ -30,9 +30,9 @@ const Contact = () => {
         type: "spring",
         stiffness: 100,
         damping: 15,
-        duration: 0.4
-      }
-    }
+        duration: 0.4,
+      },
+    },
   };
 
   const formVariants = {
@@ -44,9 +44,9 @@ const Contact = () => {
         type: "spring",
         stiffness: 100,
         damping: 20,
-        duration: 0.5
-      }
-    }
+        duration: 0.5,
+      },
+    },
   };
 
   const handleChange = (e) => {
@@ -72,10 +72,7 @@ const Contact = () => {
       viewport={{ once: true }}
       variants={containerVariants}
     >
-      <motion.div
-        className="container mx-auto px-4"
-        variants={itemVariants}
-      >
+      <motion.div className="container mx-auto px-4" variants={itemVariants}>
         <div className="text-center mb-16">
           <motion.h2
             className="text-6xl font-bold uppercase text-white font-quicksand mb-6"
@@ -83,16 +80,27 @@ const Contact = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            Get In Touch
+            <BlurText
+              text=" Get In Touch"
+              delay={50}
+              animateBy="letters"
+              direction="top"
+              className="flex justify-center items-center"
+            />
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-gray-300 max-w-3xl mx-auto text-xl leading-relaxed"
             variants={itemVariants}
           >
-            Ready to bring your next project to life? I&apos;m always excited to discuss new opportunities, 
-            collaborate on innovative ideas, or simply connect with fellow developers and creators.
+            <BlurText
+              text="Ready to bring your next project to life? I'm always excited to discuss new opportunities, collaborate on innovative ideas, or simply connect with fellow developers and creators."
+              delay={50}
+              animateBy="words"
+              direction="top"
+              className="text-xl flex justify-center items-center"
+            />
           </motion.p>
-          <motion.div 
+          <motion.div
             className="w-24 h-1 bg-white mx-auto mt-6 rounded-full"
             variants={itemVariants}
           />
@@ -101,29 +109,29 @@ const Contact = () => {
         <motion.div
           className="max-w-6xl mx-auto bg-black/80 backdrop-blur-sm border border-white/20 rounded-3xl shadow-2xl shadow-white/10 overflow-hidden"
           variants={formVariants}
-          whileHover={{ 
+          whileHover={{
             scale: 1.01,
             boxShadow: "0 30px 60px -12px rgba(255, 255, 255, 0.25)",
             borderColor: "rgba(255, 255, 255, 0.4)",
-            transition: { duration: 0.3 }
+            transition: { duration: 0.3 },
           }}
         >
           <div className="grid md:grid-cols-5">
-            <motion.div 
+            <motion.div
               className="md:col-span-2 bg-gradient-to-br from-white to-gray-100 p-10 flex flex-col justify-center relative overflow-hidden"
               variants={itemVariants}
             >
               {/* Decorative elements */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-black/5 rounded-full -translate-y-16 translate-x-16" />
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/5 rounded-full translate-y-12 -translate-x-12" />
-              
+
               <div className="relative z-10">
                 <h3 className="text-4xl font-bold text-black mb-8 font-quicksand">
                   Let&apos;s Create Something Amazing
                 </h3>
-                
+
                 <div className="space-y-6">
-                  <motion.div 
+                  <motion.div
                     className="flex items-center space-x-4 group"
                     variants={itemVariants}
                     whileHover={{ x: 10, scale: 1.02 }}
@@ -139,8 +147,8 @@ const Contact = () => {
                       </span>
                     </div>
                   </motion.div>
-                  
-                  <motion.div 
+
+                  <motion.div
                     className="flex items-center space-x-4 group"
                     variants={itemVariants}
                     whileHover={{ x: 10, scale: 1.02 }}
@@ -155,42 +163,53 @@ const Contact = () => {
                     </div>
                   </motion.div>
                 </div>
-                
-                <motion.div 
+
+                <motion.div
                   className="mt-10 pt-8 border-t border-black/10"
                   variants={itemVariants}
                 >
                   <div className="flex items-center space-x-2 mb-4">
                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-black font-medium">Available for work</span>
+                    <span className="text-black font-medium">
+                      Available for work
+                    </span>
                   </div>
                   <p className="text-gray-600 text-sm leading-relaxed">
-                    Currently accepting freelance projects and full-time opportunities. 
-                    I typically respond within 24 hours and love discussing innovative ideas!
+                    Currently accepting freelance projects and full-time
+                    opportunities. I typically respond within 24 hours and love
+                    discussing innovative ideas!
                   </p>
                 </motion.div>
               </div>
             </motion.div>
 
-            <motion.form 
-              onSubmit={handleSubmit} 
+            <motion.form
+              onSubmit={handleSubmit}
               className="md:col-span-3 p-10 bg-black space-y-8"
               variants={itemVariants}
             >
               <div className="mb-8">
-                <h4 className="text-2xl font-bold text-white mb-2">Send Me a Message</h4>
-                <p className="text-gray-400">Fill out the form below and I&apos;ll get back to you as soon as possible.</p>
+                <h4 className="text-2xl font-bold text-white mb-2">
+                  Send Me a Message
+                </h4>
+                <p className="text-gray-400">
+                  Fill out the form below and I&apos;ll get back to you as soon
+                  as possible.
+                </p>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
-                <motion.div 
+                <motion.div
                   className="relative group"
                   variants={itemVariants}
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.2 }}
                 >
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <User className="text-gray-500 group-hover:text-white transition-colors duration-300" size={18} />
+                    <User
+                      className="text-gray-500 group-hover:text-white transition-colors duration-300"
+                      size={18}
+                    />
                   </div>
                   <input
                     type="text"
@@ -203,14 +222,17 @@ const Contact = () => {
                   />
                 </motion.div>
 
-                <motion.div 
+                <motion.div
                   className="relative group"
                   variants={itemVariants}
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.2 }}
                 >
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Mail className="text-gray-500 group-hover:text-white transition-colors duration-300" size={18} />
+                    <Mail
+                      className="text-gray-500 group-hover:text-white transition-colors duration-300"
+                      size={18}
+                    />
                   </div>
                   <input
                     type="email"
@@ -224,14 +246,17 @@ const Contact = () => {
                 </motion.div>
               </div>
 
-              <motion.div 
+              <motion.div
                 className="relative group"
                 variants={itemVariants}
                 whileHover={{ scale: 1.01 }}
                 transition={{ duration: 0.2 }}
               >
                 <div className="absolute top-4 left-0 pl-4 pointer-events-none">
-                  <MessageCircle className="text-gray-500 group-hover:text-white transition-colors duration-300" size={18} />
+                  <MessageCircle
+                    className="text-gray-500 group-hover:text-white transition-colors duration-300"
+                    size={18}
+                  />
                 </div>
                 <textarea
                   name="message"
@@ -247,17 +272,20 @@ const Contact = () => {
               <motion.button
                 type="submit"
                 variants={itemVariants}
-                whileHover={{ 
-                  scale: 1.05, 
-                  y: -2, 
+                whileHover={{
+                  scale: 1.05,
+                  y: -2,
                   boxShadow: "0 15px 30px rgba(255, 255, 255, 0.2)",
-                  backgroundColor: "#f9fafb"
+                  backgroundColor: "#f9fafb",
                 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: 0.2 }}
                 className="w-full flex items-center justify-center py-4 px-8 bg-white text-black font-bold rounded-xl border border-white hover:bg-gray-50 transition-all duration-300 shadow-lg shadow-white/10 group"
               >
-                <Send className="mr-3 group-hover:translate-x-1 transition-transform duration-300" size={20} />
+                <Send
+                  className="mr-3 group-hover:translate-x-1 transition-transform duration-300"
+                  size={20}
+                />
                 Send Message
               </motion.button>
             </motion.form>

@@ -4,44 +4,37 @@ import Home from "./Pages/Home";
 
 import "./App.css";
 
-
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
-
 const Layout = () => {
-  
-  return (
-    <div className="bg-gradient-to-br from-gray-950 via-black to-gray-950 app">
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
-  );
+	return (
+		<div className="bg-gradient-to-br from-gray-950 via-black to-gray-950 app">
+			<Header />
+			<Outlet />
+			<Footer />
+		</div>
+	);
 };
 
-
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-    
-     
-    
-    ],
-  },
+	{
+		path: "/",
+		element: <Layout />,
+		children: [
+			{
+				path: "/",
+				element: <Home />,
+			},
+		],
+	},
 ]);
 
 const App = () => {
-  return (
-    <div>
-      <RouterProvider router={router} />
-    </div>
-  );
+	return (
+		<div>
+			<RouterProvider router={router} />
+		</div>
+	);
 };
 
 export default App;
