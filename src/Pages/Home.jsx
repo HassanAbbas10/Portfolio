@@ -3,17 +3,13 @@ import { About, Projects, Contact, Experience } from "../components/index";
 import { Element } from "react-scroll";
 import { skill } from "@/components/utils/projects";
 import LogoLoopComp from "@/components/LogoLoop/LogoLoopComp";
+import AnimatedBeamDemo from "@/components/animated-beam-demo";
 const Home = () => {
   return (
     <div className="w-full h-full">
       <Element name="about">
-
         <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-          
-
-
           <About />
-         
         </div>
       </Element>
 
@@ -22,7 +18,9 @@ const Home = () => {
           <Experience />
         </div>
       </Element>
-
+      <div className="container mx-auto py-8">
+        <AnimatedBeamDemo />
+      </div>
       <LogoLoopComp />
 
       <Element name="projects">
