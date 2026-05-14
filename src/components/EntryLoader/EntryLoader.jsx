@@ -9,7 +9,7 @@ const loadingStates =
   { text: "Stabilizing the Compile Gateway..." },
   { text: "The Nexus Breathes. Welcome." }
 ]
-const STEP_DURATION = 1000; // ms between each step
+const STEP_DURATION = 1200; 
 
 // ─── Icons (matching original component) ────────────────────
 const CheckOutline = () => (
@@ -261,7 +261,7 @@ export default function EntryLoader({ onFinished, minimumDuration = 0 }) {
         }}
       />
 
-      
+
 
       {/* Radial mask fade (original style) */}
       <div

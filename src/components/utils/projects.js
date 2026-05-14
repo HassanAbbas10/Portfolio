@@ -149,7 +149,7 @@ export const experiences = [
 			"Implementing full-stack architecture with modern technologies",
 			"Ensuring scalable and maintainable code structure",
 		],
-		technologies: [
+technologies: [
 			"React",
 			"Node.js",
 			"MongoDB",

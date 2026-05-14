@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:tympanus.net)",
+      "WebFetch(domain:github.com)",
+      "Bash(find /tmp/codrops-depth-gallery -type f -not -path '*/\\\\.git/*' -not -path '*/node_modules/*' | head -50 && echo \"---\" && cat /tmp/codrops-depth-gallery/package.json)",
+      "Read(//tmp/codrops-depth-gallery/**)",
+      "Bash(timeout 25 bun run dev)",
+      "Bash(bun add *)",
+      "Bash(bun run *)",
+      "Bash(find /home/orion -name \"design.md\" -o -name \"Design.md\" 2>/dev/null | grep -v node_modules)",
+      "Read(//home/orion/**)"
+    ]
+  }
+}

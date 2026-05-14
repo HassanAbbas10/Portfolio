@@ -18,7 +18,7 @@ import {
 	SiExpress,
 	SiAxios,
 	SiReactrouter,
-	SiCss3,
+	SiCss,
 	SiStripe,
 	SiAndroidstudio,
 	SiFirebase,
@@ -41,7 +41,7 @@ const techIcons = {
 	Express: SiExpress,
 	Axios: SiAxios,
 	ReactRouter: SiReactrouter,
-	CSS: SiCss3,
+	CSS: SiCss,
 	Stripe: SiStripe,
 	Android: SiAndroidstudio,
 	Firebase: SiFirebase,
@@ -123,9 +123,9 @@ const Projects = () => {
 
 	return (
 		<>
-			<div className="bg-gradient-to-br from-gray-950 via-black to-gray-950 pt-10">
+			<div className="pt-10 bg-gradient-to-br from-gray-950 via-black to-gray-950">
 				<motion.div
-					className="mx-auto text-center sm:mt-0 mt-32"
+					className="mx-auto mt-32 text-center sm:mt-0"
 					initial="hidden"
 					whileInView="visible"
 					viewport={{ once: true }}
@@ -142,7 +142,7 @@ const Projects = () => {
 
 					{/* Filter Buttons */}
 					<motion.div
-						className="flex flex-wrap justify-center gap-2 sm:gap-4 mt-8 mb-8 px-4"
+						className="flex flex-wrap justify-center gap-2 px-4 mt-8 mb-8 sm:gap-4"
 						variants={containerVariants}
 					>
 						{availableFilters.map((filter) => (
@@ -165,7 +165,7 @@ const Projects = () => {
 				</motion.div>
 
 				<motion.div
-					className="w-full px-2 sm:px-4 py-8"
+					className="w-full px-2 py-8 sm:px-4"
 					initial="hidden"
 					whileInView="visible"
 					viewport={{ once: true }}
@@ -176,7 +176,7 @@ const Projects = () => {
 						<AnimatePresence mode="wait">
 							<motion.div
 								key={activeFilter}
-								className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-8xl mx-auto"
+								className="grid grid-cols-1 gap-4 mx-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-6 lg:gap-8 max-w-8xl"
 								layout
 								initial="hidden"
 								animate="visible"
@@ -219,14 +219,14 @@ const Projects = () => {
 
 											{/* Project Heading */}
 											<div className="flex items-center justify-center">
-												<div className="mt-3 sm:mt-4 text-lg sm:text-xl font-bold font-quicksand text-custom-green text-center">
+												<div className="mt-3 text-lg font-bold text-center sm:mt-4 sm:text-xl font-quicksand text-custom-green">
 													{proj.heading}
 												</div>
 											</div>
 
 											{/* Project Description */}
 											<div className="flex items-center justify-center">
-												<p className="max-w-sm mt-2 text-white text-sm sm:text-md font-cormorant text-center px-2">
+												<p className="max-w-sm px-2 mt-2 text-sm text-center text-white sm:text-md font-cormorant">
 													{proj.description}
 												</p>
 											</div>
@@ -291,21 +291,21 @@ const Projects = () => {
 						<AnimatePresence mode="wait">
 							<motion.div
 								key="no-projects"
-								className="text-center text-white text-xl mt-8 py-16"
+								className="py-16 mt-8 text-xl text-center text-white"
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								exit={{ opacity: 0, y: -20 }}
 								transition={{ duration: 0.5 }}
 							>
 								<div className="max-w-md mx-auto">
-									<h3 className="text-2xl font-bold text-gray-300 mb-4">
+									<h3 className="mb-4 text-2xl font-bold text-gray-300">
 										No Projects Found
 									</h3>
 									<p className="text-gray-400">
 										No projects found for &ldquo;{activeFilter}&rdquo; category.
 									</p>
 									<motion.button
-										className="mt-6 px-6 py-2 bg-custom-green text-black rounded-full font-medium hover:bg-green-400 transition-all duration-300"
+										className="px-6 py-2 mt-6 font-medium text-black transition-all duration-300 rounded-full bg-custom-green hover:bg-green-400"
 										whileHover={{ scale: 1.05 }}
 										whileTap={{ scale: 0.95 }}
 										onClick={() => setActiveFilter("All")}

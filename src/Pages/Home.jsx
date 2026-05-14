@@ -2,8 +2,7 @@ import Skills from "@/components/Skills/Skills";
 import { About, Projects, Contact, Experience } from "../components/index";
 import { Element } from "react-scroll";
 import { skill } from "@/components/utils/projects";
-import LogoLoopComp from "@/components/LogoLoop/LogoLoopComp";
-import AnimatedBeamDemo from "@/components/animated-beam-demo";
+import DepthGallery from "@/components/DepthGallery/DepthGallery";
 const Home = () => {
   return (
     <div className="w-full h-full">
@@ -18,10 +17,10 @@ const Home = () => {
           <Experience />
         </div>
       </Element>
-      <div className="container mx-auto py-8">
-        <AnimatedBeamDemo />
-      </div>
-      <LogoLoopComp />
+
+      <Element name="stack">
+        <DepthGallery />
+      </Element>
 
       <Element name="projects">
         <div className="bg-gradient-to-br from-black via-gray-800 to-black">
