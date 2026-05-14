@@ -3,19 +3,16 @@ import { About, Projects, Contact, Experience } from "../components/index";
 import { Element } from "react-scroll";
 import { skill } from "@/components/utils/projects";
 import DepthGallery from "@/components/DepthGallery/DepthGallery";
+
 const Home = () => {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full bg-black">
       <Element name="about">
-        <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-          <About />
-        </div>
+        <About />
       </Element>
 
       <Element name="experience">
-        <div className="bg-gradient-to-br from-black via-gray-900 to-black">
-          <Experience />
-        </div>
+        <Experience />
       </Element>
 
       <Element name="stack">
@@ -23,21 +20,15 @@ const Home = () => {
       </Element>
 
       <Element name="projects">
-        <div className="bg-gradient-to-br from-black via-gray-800 to-black">
-          <Projects />
-        </div>
+        <Projects />
       </Element>
 
       <Element name="skills">
-        <div className="bg-gradient-to-br from-gray-900 via-indigo-900 to-gray-900">
-          <Skills skilles={skill} />
-        </div>
+        <Skills skilles={skill} />
       </Element>
 
       <Element name="contact">
-        <div className="bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900">
-          <Contact />
-        </div>
+        <Contact />
       </Element>
     </div>
   );

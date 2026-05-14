@@ -8,8 +8,6 @@ export class Label {
     this.wordElement = null
     this.chipElement = null
     this.categoryValueElement = null
-    this.hexValueElement = null
-    this.totalValueElement = null
     this.activePlaneIndex = -1
   }
 
@@ -32,14 +30,6 @@ export class Label {
             <dt>Stack</dt>
             <dd class="depth-label-card__value depth-label-card__value--category"></dd>
           </div>
-          <div class="depth-label-card__row">
-            <dt>Hex</dt>
-            <dd class="depth-label-card__value depth-label-card__value--hex"></dd>
-          </div>
-          <div class="depth-label-card__row">
-            <dt>Total</dt>
-            <dd class="depth-label-card__value depth-label-card__value--total"></dd>
-          </div>
         </dl>
       </article>
     `
@@ -50,8 +40,6 @@ export class Label {
       wordElement: element.querySelector('.depth-label-card__word'),
       chipElement: element.querySelector('.depth-label-overlay__chip'),
       categoryValueElement: element.querySelector('.depth-label-card__value--category'),
-      hexValueElement: element.querySelector('.depth-label-card__value--hex'),
-      totalValueElement: element.querySelector('.depth-label-card__value--total'),
     }
   }
 
@@ -64,8 +52,6 @@ export class Label {
     this.wordElement = built.wordElement
     this.chipElement = built.chipElement
     this.categoryValueElement = built.categoryValueElement
-    this.hexValueElement = built.hexValueElement
-    this.totalValueElement = built.totalValueElement
     this.overlayElement.style.opacity = '0'
 
     const host = this.containerElement || document.body
@@ -117,8 +103,6 @@ export class Label {
       this.wordElement.textContent = labelData.word || 'tech'
       this.chipElement.style.backgroundColor = accentHex
       this.categoryValueElement.textContent = labelData.category || ''
-      this.hexValueElement.textContent = accentHex.slice(1).toUpperCase()
-      this.totalValueElement.textContent = String(this.gallery.planes.length).padStart(2, '0')
       this.overlayElement.style.color = labelData.color || ''
 
       this.overlayElement.classList.remove('depth-label-overlay--switching')
@@ -148,8 +132,6 @@ export class Label {
     this.wordElement = null
     this.chipElement = null
     this.categoryValueElement = null
-    this.hexValueElement = null
-    this.totalValueElement = null
     this.activePlaneIndex = -1
   }
 }

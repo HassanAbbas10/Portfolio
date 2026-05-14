@@ -20,6 +20,25 @@ export default {
     },
     extend: {
       colors: {
+        // iTrust121 brand palette
+        'night': '#131313',
+        'charcoal': '#363E44',
+        'cadet': '#9DB4C0',
+        'frost': '#FDFEFE',
+        // Design system tokens
+        'ds-ink': '#fcfdff',
+        'ds-mute': '#a1a4a5',
+        'ds-ash': '#888e90',
+        'ds-stone': '#464a4d',
+        'ds-surface': '#0a0a0c',
+        'ds-elevated': '#101012',
+        'ds-deep': '#06060a',
+        'ds-accent-orange': '#ff801f',
+        'ds-accent-blue': '#3b9eff',
+        'ds-accent-green': '#11ff99',
+        'ds-accent-red': '#ff2047',
+        'ds-accent-yellow': '#ffc53d',
+        // Legacy custom colors kept for backward compat
         'dark-charcoal': '#1a1a1a',
         'electric-crimson': '#ff0040',
 'custom-green': '#37c898',
@@ -45,8 +64,13 @@ export default {
 
       },
       fontFamily: {
-        cormorant: ["Cormorant Garamond", "serif"],
-        quicksand: ["Quicksand", "sans-serif"],
+        // PDF primary: PP Monument Extended (Black / Regular / Light)
+        monument: ["PP Monument Extended", "sans-serif"],
+        // PDF secondary: Helvetica Neue (Bold / Roman)
+        helvetica: ['"Helvetica Neue"', "Helvetica", "Arial", "sans-serif"],
+        // Kept for legacy
+        display: ["Playfair Display", "Georgia", "serif"],
+        inter: ["Inter", "system-ui", "sans-serif"],
       },
 
       animation: {

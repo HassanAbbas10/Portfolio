@@ -1,298 +1,146 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Send, User, Mail, MessageCircle } from "lucide-react";
-import BlurText from "../ui/TextAnimations/BlurText/BlurText";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const sectionRef = useRef(null);
+  const glowRef = useRef(null);
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        duration: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15,
-        duration: 0.4,
-      },
-    },
-  };
-
-  const formVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-        duration: 0.5,
-      },
-    },
-  };
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.to(glowRef.current, {
+        y: -50, ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom", end: "bottom top", scrub: 1.2,
+        },
+      });
+    });
+    return () => ctx.revert();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     console.log("Form submitted:", formData);
   };
 
   return (
-    <motion.section
-      id="contact"
-      className="py-12 sm:py-16 lg:py-20 bg-gradient-to-br from-gray-950 via-black to-gray-950"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={containerVariants}
-    >
-      <motion.div className="container mx-auto px-4 sm:px-6" variants={itemVariants}>
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-          <motion.h2
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-white font-quicksand mb-4 sm:mb-6"
-            variants={itemVariants}
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
-          >
-            <BlurText
-              text=" Get In Touch"
-              delay={50}
-              animateBy="letters"
-              direction="top"
-              className="flex justify-center items-center"
-            />
-          </motion.h2>
-          <motion.p
-            className="text-gray-300 max-w-3xl mx-auto text-base sm:text-lg lg:text-xl leading-relaxed px-4"
-            variants={itemVariants}
-          >
-            <BlurText
-              text="Ready to bring your next project to life? I'm always excited to discuss new opportunities, collaborate on innovative ideas, or simply connect with fellow developers and creators."
-              delay={50}
-              animateBy="words"
-              direction="top"
-              className="text-base sm:text-lg lg:text-xl flex justify-center items-center"
-            />
-          </motion.p>
-          <motion.div
-            className="w-16 sm:w-20 lg:w-24 h-1 bg-white mx-auto mt-4 sm:mt-6 rounded-full"
-            variants={itemVariants}
-          />
-        </div>
+    <section ref={sectionRef} className="relative bg-black py-24 overflow-hidden">
+      <div
+        ref={glowRef}
+        className="pointer-events-none absolute inset-x-0 top-0 h-[520px]"
+        style={{ background: "radial-gradient(ellipse 55% 40% at 50% 0%, rgba(17,255,153,0.07), transparent)" }}
+      />
+      <div className="relative z-10 max-w-[1200px] mx-auto px-6 sm:px-8">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.4 }}
+        >
+          <p className="text-[#9DB4C0] font-monument font-light text-[10px] uppercase tracking-[0.28em] mb-4">Contact</p>
+          <h2 className="font-monument text-[clamp(1.6rem,4vw,2.8rem)] font-black leading-[1.0] tracking-[-0.01em] text-[#fcfdff] mb-5 uppercase">
+            Let&apos;s Work Together
+          </h2>
+          <p className="text-[rgba(252,253,255,0.55)] text-lg max-w-md mx-auto font-helvetica">
+            Have a project in mind? Drop me a message and I&apos;ll get back to you.
+          </p>
+        </motion.div>
 
         <motion.div
-          className="max-w-6xl mx-auto bg-black/80 backdrop-blur-sm border border-white/20 rounded-2xl sm:rounded-3xl shadow-2xl shadow-white/10 overflow-hidden"
-          variants={formVariants}
-          whileHover={{
-            scale: 1.01,
-            boxShadow: "0 30px 60px -12px rgba(255, 255, 255, 0.25)",
-            borderColor: "rgba(255, 255, 255, 0.4)",
-            transition: { duration: 0.3 },
-          }}
+          className="max-w-4xl mx-auto border border-white/[0.12] rounded-xl overflow-hidden grid md:grid-cols-5"
+          initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }} transition={{ duration: 0.45, delay: 0.1 }}
         >
-          <div className="grid md:grid-cols-5">
-            <motion.div
-              className="md:col-span-2 bg-gradient-to-br from-white to-gray-100 p-6 sm:p-8 lg:p-10 flex flex-col justify-center relative overflow-hidden"
-              variants={itemVariants}
-            >
-              {/* Decorative elements */}
-              <div className="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 bg-black/5 rounded-full -translate-y-12 sm:-translate-y-16 translate-x-12 sm:translate-x-16" />
-              <div className="absolute bottom-0 left-0 w-16 sm:w-24 h-16 sm:h-24 bg-black/5 rounded-full translate-y-8 sm:translate-y-12 -translate-x-8 sm:-translate-x-12" />
-
-              <div className="relative z-10">
-                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-black mb-6 sm:mb-8 font-quicksand">
-                  Let&apos;s Create Something Amazing
-                </h3>
-
-                <div className="space-y-4 sm:space-y-6">
-                  <motion.div
-                    className="flex items-center space-x-3 sm:space-x-4 group"
-                    variants={itemVariants}
-                    whileHover={{ x: 10, scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div className="p-2 sm:p-3 bg-black rounded-lg sm:rounded-xl group-hover:bg-gray-800 transition-colors duration-300">
-                      <Mail className="text-white" size={16} />
-                    </div>
-                    <div>
-                      <p className="text-black font-semibold text-sm sm:text-base">Email</p>
-                      <span className="text-gray-600 text-xs sm:text-sm break-all">
-                        hassanabbas05674@gmail.com
-                      </span>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    className="flex items-center space-x-3 sm:space-x-4 group"
-                    variants={itemVariants}
-                    whileHover={{ x: 10, scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div className="p-2 sm:p-3 bg-black rounded-lg sm:rounded-xl group-hover:bg-gray-800 transition-colors duration-300">
-                      <MessageCircle className="text-white" size={16} />
-                    </div>
-                    <div>
-                      <p className="text-black font-semibold text-sm sm:text-base">Discord</p>
-                      <span className="text-gray-600 text-xs sm:text-sm">@Orion_dev</span>
-                    </div>
-                  </motion.div>
+          {/* Info panel */}
+          <div className="md:col-span-2 bg-[#0a0a0c] p-8 border-b border-white/[0.08] md:border-b-0 md:border-r md:border-white/[0.08] flex flex-col justify-between">
+            <div>
+              <h3 className="font-helvetica font-bold text-lg text-[#fcfdff] mb-6">Get In Touch</h3>
+              <div className="space-y-5">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 flex items-center justify-center rounded bg-[#101012] border border-white/[0.1] flex-shrink-0">
+                    <Mail size={14} className="text-[rgba(252,253,255,0.6)]" />
+                  </div>
+                  <div>
+                    <p className="text-[#9DB4C0] font-monument font-light text-[9px] uppercase tracking-[0.22em] mb-0.5">Email</p>
+                    <span className="text-[rgba(252,253,255,0.7)] text-sm break-all font-helvetica">hassanabbas05674@gmail.com</span>
+                  </div>
                 </div>
-
-                <motion.div
-                  className="mt-6 sm:mt-8 lg:mt-10 pt-6 sm:pt-8 border-t border-black/10"
-                  variants={itemVariants}
-                >
-                  <div className="flex items-center space-x-2 mb-3 sm:mb-4">
-                    <div className="w-2 sm:w-3 h-2 sm:h-3 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-black font-medium text-sm sm:text-base">
-                      Available for work
-                    </span>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 flex items-center justify-center rounded bg-[#101012] border border-white/[0.1] flex-shrink-0">
+                    <MessageCircle size={14} className="text-[rgba(252,253,255,0.6)]" />
                   </div>
-                  <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
-                    Currently accepting freelance projects and full-time
-                    opportunities. I typically respond within 24 hours and love
-                    discussing innovative ideas!
-                  </p>
-                </motion.div>
-              </div>
-            </motion.div>
-
-            <motion.form
-              onSubmit={handleSubmit}
-              className="md:col-span-3 p-6 sm:p-8 lg:p-10 bg-black space-y-6 sm:space-y-8"
-              variants={itemVariants}
-            >
-              <div className="mb-6 sm:mb-8">
-                <h4 className="text-xl sm:text-2xl font-bold text-white mb-2">
-                  Send Me a Message
-                </h4>
-                <p className="text-gray-400 text-sm sm:text-base">
-                  Fill out the form below and I&apos;ll get back to you as soon
-                  as possible.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
-                <motion.div
-                  className="relative group"
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
-                    <User
-                      className="text-gray-500 group-hover:text-white transition-colors duration-300"
-                      size={16}
-                    />
+                  <div>
+                    <p className="text-[#9DB4C0] font-monument font-light text-[9px] uppercase tracking-[0.22em] mb-0.5">Discord</p>
+                    <span className="text-[rgba(252,253,255,0.7)] text-sm font-helvetica">@Orion_dev</span>
                   </div>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your Full Name"
-                    className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-gray-900/50 border border-white/20 rounded-lg sm:rounded-xl focus:outline-none focus:border-white focus:shadow-lg focus:shadow-white/10 text-white placeholder-gray-500 transition-all duration-300 text-sm sm:text-base"
-                    required
-                  />
-                </motion.div>
-
-                <motion.div
-                  className="relative group"
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
-                    <Mail
-                      className="text-gray-500 group-hover:text-white transition-colors duration-300"
-                      size={16}
-                    />
-                  </div>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="your.email@example.com"
-                    className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-gray-900/50 border border-white/20 rounded-lg sm:rounded-xl focus:outline-none focus:border-white focus:shadow-lg focus:shadow-white/10 text-white placeholder-gray-500 transition-all duration-300 text-sm sm:text-base"
-                    required
-                  />
-                </motion.div>
-              </div>
-
-              <motion.div
-                className="relative group"
-                variants={itemVariants}
-                whileHover={{ scale: 1.01 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="absolute top-3 sm:top-4 left-0 pl-3 sm:pl-4 pointer-events-none">
-                  <MessageCircle
-                    className="text-gray-500 group-hover:text-white transition-colors duration-300"
-                    size={16}
-                  />
                 </div>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Tell me about your project, ideas, or just say hello..."
-                  rows="5"
-                  className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-gray-900/50 border border-white/20 rounded-lg sm:rounded-xl focus:outline-none focus:border-white focus:shadow-lg focus:shadow-white/10 text-white placeholder-gray-500 transition-all duration-300 resize-none text-sm sm:text-base"
-                  required
-                />
-              </motion.div>
-
-              <motion.button
-                type="submit"
-                variants={itemVariants}
-                whileHover={{
-                  scale: 1.05,
-                  y: -2,
-                  boxShadow: "0 15px 30px rgba(255, 255, 255, 0.2)",
-                  backgroundColor: "#f9fafb",
-                }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.2 }}
-                className="w-full flex items-center justify-center py-3 sm:py-4 px-6 sm:px-8 bg-white text-black font-bold rounded-lg sm:rounded-xl border border-white hover:bg-gray-50 transition-all duration-300 shadow-lg shadow-white/10 group text-sm sm:text-base"
-              >
-                <Send
-                  className="mr-2 sm:mr-3 group-hover:translate-x-1 transition-transform duration-300"
-                  size={16}
-                />
-                Send Message
-              </motion.button>
-            </motion.form>
+              </div>
+            </div>
+            <div className="mt-8 pt-6 border-t border-white/[0.06]">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-2 h-2 rounded-full bg-[#11ff99] animate-pulse flex-shrink-0" />
+                <span className="text-[rgba(252,253,255,0.65)] text-sm font-helvetica">Available for work</span>
+              </div>
+              <p className="text-[#888e90] text-xs leading-relaxed font-helvetica">
+                Currently accepting freelance projects and full-time opportunities. Typically respond within 24 hours.
+              </p>
+            </div>
           </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="md:col-span-3 bg-black p-8 space-y-5">
+            <div>
+              <h4 className="text-[#fcfdff] font-helvetica font-bold text-base mb-1">Send a Message</h4>
+              <p className="text-[rgba(252,253,255,0.45)] text-sm font-helvetica">Fill out the form and I&apos;ll get back to you shortly.</p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="relative">
+                <User size={13} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[rgba(252,253,255,0.35)] pointer-events-none" />
+                <input
+                  type="text" name="name" value={formData.name} onChange={handleChange}
+                  placeholder="Full Name" required
+                  className="w-full h-10 pl-9 pr-4 bg-[#0a0a0c] border border-white/[0.12] rounded-md text-[#fcfdff] text-sm placeholder-[rgba(252,253,255,0.25)] focus:outline-none focus:border-white/40 transition-colors font-helvetica"
+                />
+              </div>
+              <div className="relative">
+                <Mail size={13} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[rgba(252,253,255,0.35)] pointer-events-none" />
+                <input
+                  type="email" name="email" value={formData.email} onChange={handleChange}
+                  placeholder="Email Address" required
+                  className="w-full h-10 pl-9 pr-4 bg-[#0a0a0c] border border-white/[0.12] rounded-md text-[#fcfdff] text-sm placeholder-[rgba(252,253,255,0.25)] focus:outline-none focus:border-white/40 transition-colors font-helvetica"
+                />
+              </div>
+            </div>
+            <div className="relative">
+              <MessageCircle size={13} className="absolute left-3.5 top-3.5 text-[rgba(252,253,255,0.35)] pointer-events-none" />
+              <textarea
+                name="message" value={formData.message} onChange={handleChange}
+                placeholder="Tell me about your project or just say hello..."
+                rows="5" required
+                className="w-full pl-9 pr-4 py-3 bg-[#0a0a0c] border border-white/[0.12] rounded-md text-[#fcfdff] text-sm placeholder-[rgba(252,253,255,0.25)] focus:outline-none focus:border-white/40 transition-colors resize-none font-helvetica"
+              />
+            </div>
+            <button
+              type="submit"
+              className="inline-flex items-center gap-2 h-9 px-5 bg-[#fcfdff] text-black font-monument font-black text-[10px] uppercase tracking-[0.18em] rounded-md hover:bg-[#e8eef8] transition-colors duration-200"
+            >
+              <Send size={13} />
+              Send Message
+            </button>
+          </form>
         </motion.div>
-      </motion.div>
-    </motion.section>
+      </div>
+    </section>
   );
 };
 

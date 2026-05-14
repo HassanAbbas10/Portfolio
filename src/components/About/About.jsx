@@ -1,139 +1,131 @@
 import { motion } from "framer-motion";
-import { lazy, Suspense, memo } from "react";
-import BlurText from "../ui/TextAnimations/BlurText/BlurText";
-import { BorderBeam } from "../ui/border-beam";
+import { lazy, Suspense, memo, useEffect, useRef } from "react";
+import { socialLinks } from "../utils/projects";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const LottieAni = lazy(() => import("../Lottie/LottieAni"));
 const SocialLinks = lazy(() => import("../Socials/SocialLinks "));
 
-const items = [
-  { label: "I am a Software Engineer", colorFrom: "#ffaa40", colorTo: "#9c40ff", delay: 0 },
-  { label: "A Problem Solver", colorFrom: "#40ffaa", colorTo: "#4079ff", delay: 2 },
-  { label: "Interested in System Design and Scalable Architectures", colorFrom: "#ff4040", colorTo: "#ffaa40", delay: 4 },
-];
+gsap.registerPlugin(ScrollTrigger);
 
 const About = memo(() => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, duration: 0.2, ease: "easeOut" },
-    },
-  };
+  const glowRef = useRef(null);
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
-  };
-
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
-  };
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.to(glowRef.current, {
+        y: -60,
+        ease: "none",
+        scrollTrigger: {
+          trigger: glowRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.5,
+        },
+      });
+    });
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <motion.section
-      className="w-full h-screen mt-10 bg-gradient-to-br from-gray-950 via-black to-gray-950"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={containerVariants}
-    >
-      <div className="mx-auto text-center">
-        <motion.h2
-          className="pt-8 text-4xl font-bold uppercase text-fuchsia-50 font-quicksand"
-          variants={itemVariants}
+    <section className="relative w-full min-h-screen bg-black flex items-center overflow-hidden pt-16">
+      <div
+        ref={glowRef}
+        className="pointer-events-none absolute inset-x-0 top-0 h-[640px]"
+        style={{
+          background:
+            "radial-gradient(ellipse 65% 55% at 30% 0%, rgba(255,128,31,0.13), transparent)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-[500px]"
+        style={{
+          background:
+            "radial-gradient(ellipse 45% 40% at 80% 0%, rgba(59,158,255,0.07), transparent)",
+        }}
+      />
+
+      <div className="relative z-10 max-w-[1200px] mx-auto px-6 sm:px-8 w-full grid md:grid-cols-2 gap-12 lg:gap-20 items-center py-20 md:py-28">
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
         >
-          <BlurText
-            text="About"
-            delay={150}
-            animateBy="letters"
-            direction="top"
-            className="flex items-center justify-center mb-8 text-3xl"
-          />
-        </motion.h2>
+          <p className="text-[#9DB4C0] font-monument font-light text-[10px] uppercase tracking-[0.28em] mb-5">
+            Software Engineer · MERN Stack
+          </p>
 
-        <div className="container flex flex-col items-center px-5 py-10 mx-auto md:flex-row">
-          <motion.div
-            className="flex flex-col items-center mb-6 text-center lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 md:items-start md:text-left md:mb-0"
-            variants={itemVariants}
+          <h1 className="font-monument text-[clamp(2.2rem,4.8vw,3.8rem)] font-black leading-[1.0] text-[#fcfdff] mb-6 uppercase">
+            Hassan Abbas
+          </h1>
+
+          <motion.p
+            className="text-[rgba(252,253,255,0.65)] text-lg leading-relaxed mb-9 max-w-[460px] font-helvetica"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
           >
-            <motion.h1
-              className="mb-0 text-3xl font-medium text-gray-300 title-font sm:text-4xl font-quicksand"
-              variants={itemVariants}
-              whileHover={{ scale: 1.01 }}
-              transition={{ duration: 0.15 }}
+            I&apos;ve been building web apps for a few years. React on the
+            front, Node and MongoDB on the back. I care about code that&apos;s
+            easy to read, products that feel fast, and not shipping half-baked
+            features. Currently open to freelance and full-time work.
+          </motion.p>
+
+          <motion.div
+            className="flex items-center gap-3 flex-wrap"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.4 }}
+          >
+            <a
+              href={socialLinks.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-9 px-5 bg-[#fcfdff] text-black font-monument font-black text-[10px] uppercase tracking-[0.18em] rounded-md inline-flex items-center hover:bg-[#e8eef8] transition-colors duration-200"
             >
-              <BlurText
-                text="Hello, My Name is Hassan Abbas"
-                delay={150}
-                animateBy="words"
-                direction="top"
-                className="flex items-center justify-center text-3xl"
-              />
-            </motion.h1>
-
-            {/* BorderBeam items */}
-            <motion.div className="flex flex-col items-start gap-3 mt-4 mb-4" variants={itemVariants}>
-              {items.map(({ label, colorFrom, colorTo, delay }, i) => (
-                <div
-                  key={i}
-                  className="relative rounded-lg px-4 py-2.5 bg-gray-900/50 border border-transparent"
-                >
-                  <BorderBeam
-                    size={60}
-                    duration={6}
-                    delay={delay}
-                    colorFrom={colorFrom}
-                    colorTo={colorTo}
-                    borderWidth={1.5}
-                  />
-                  <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-gray-400 flex-shrink-0" />
-                    <span className="font-mono text-sm tracking-wide text-gray-300">
-                      {label}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-
-            <motion.p
-              className="my-8 mb-4 text-xl font-medium text-gray-300 title-font sm:text-xl font-quicksand"
-              variants={itemVariants}
+              View GitHub
+            </a>
+            <a
+              href={socialLinks.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-9 px-5 bg-transparent text-[#fcfdff] font-monument font-black text-[10px] uppercase tracking-[0.18em] rounded-md inline-flex items-center border border-white/[0.15] hover:border-white/[0.35] transition-colors duration-200"
             >
-              <BlurText
-                text="Currently Working on Projects and My focus is on MERN Stack"
-                delay={150}
-                animateBy="words"
-                direction="top"
-                className="flex items-center justify-center text-xl"
-              />
-            </motion.p>
-
-            <motion.div variants={itemVariants}>
-              <Suspense fallback={<div className="w-32 h-8 bg-gray-800 rounded animate-pulse" />}>
-                <SocialLinks />
-              </Suspense>
-            </motion.div>
+              LinkedIn
+            </a>
           </motion.div>
 
           <motion.div
-            className="w-5/6 lg:max-w-lg lg:w-full md:w-1/2"
-            variants={imageVariants}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.2 }}
+            className="mt-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.65, duration: 0.4 }}
           >
-            <Suspense fallback={<div className="w-full bg-gray-800 rounded-lg aspect-square animate-pulse" />}>
-              <LottieAni />
+            <Suspense fallback={null}>
+              <SocialLinks />
             </Suspense>
           </motion.div>
-        </div>
+        </motion.div>
+
+        <motion.div
+          className="w-full flex items-center justify-center"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+        >
+          <Suspense
+            fallback={
+              <div className="w-full max-w-md aspect-square bg-[#0a0a0c] rounded-xl animate-pulse" />
+            }
+          >
+            <LottieAni />
+          </Suspense>
+        </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 });
 
 About.displayName = "About";
-
 export default About;

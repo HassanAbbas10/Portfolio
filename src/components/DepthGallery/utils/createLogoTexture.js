@@ -2,26 +2,40 @@ import * as THREE from 'three'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 
-const TEXTURE_SIZE = 1024
+// Portrait card — width:height = 3:4
+const TEXTURE_W = 768
+const TEXTURE_H = 1024
 
 function drawBackground(ctx, { backgroundColor, accentColor }) {
-  const gradient = ctx.createRadialGradient(
-    TEXTURE_SIZE * 0.5,
-    TEXTURE_SIZE * 0.45,
-    TEXTURE_SIZE * 0.05,
-    TEXTURE_SIZE * 0.5,
-    TEXTURE_SIZE * 0.5,
-    TEXTURE_SIZE * 0.75
+  // Deep base fill
+  ctx.fillStyle = backgroundColor
+  ctx.fillRect(0, 0, TEXTURE_W, TEXTURE_H)
+
+  // Main radial glow centred in the upper third where the icon lives
+  const gx = TEXTURE_W * 0.5
+  const gy = TEXTURE_H * 0.38
+  const innerR = TEXTURE_H * 0.06
+  const outerR = TEXTURE_H * 0.72
+
+  const radial = ctx.createRadialGradient(gx, gy, innerR, gx, gy, outerR)
+  radial.addColorStop(0.0, withAlpha(accentColor, 0.72))
+  radial.addColorStop(0.38, withAlpha(mixColors(accentColor, backgroundColor, 0.55), 0.55))
+  radial.addColorStop(0.75, withAlpha(backgroundColor, 0.15))
+  radial.addColorStop(1.0, 'rgba(0,0,0,0)')
+
+  ctx.fillStyle = radial
+  ctx.fillRect(0, 0, TEXTURE_W, TEXTURE_H)
+
+  // Vignette — darkens all four edges
+  const vignette = ctx.createRadialGradient(
+    TEXTURE_W * 0.5, TEXTURE_H * 0.5, TEXTURE_H * 0.25,
+    TEXTURE_W * 0.5, TEXTURE_H * 0.5, TEXTURE_H * 0.85
   )
-  gradient.addColorStop(0, accentColor)
-  gradient.addColorStop(0.6, mixColors(accentColor, backgroundColor, 0.55))
-  gradient.addColorStop(1, backgroundColor)
+  vignette.addColorStop(0, 'rgba(0,0,0,0)')
+  vignette.addColorStop(1, 'rgba(0,0,0,0.68)')
 
-  ctx.fillStyle = gradient
-  ctx.fillRect(0, 0, TEXTURE_SIZE, TEXTURE_SIZE)
-
-  ctx.fillStyle = withAlpha('#000000', 0.18)
-  ctx.fillRect(0, 0, TEXTURE_SIZE, TEXTURE_SIZE)
+  ctx.fillStyle = vignette
+  ctx.fillRect(0, 0, TEXTURE_W, TEXTURE_H)
 }
 
 function svgToDataUrl(svgString) {
@@ -31,28 +45,21 @@ function svgToDataUrl(svgString) {
 
 function loadImage(src) {
   return new Promise((resolve, reject) => {
-    const image = new Image()
-    image.onload = () => resolve(image)
-    image.onerror = (error) => reject(error)
-    image.src = src
+    const img = new Image()
+    img.onload = () => resolve(img)
+    img.onerror = (e) => reject(e)
+    img.src = src
   })
 }
 
 function hexToRgb(hex) {
   const normalized = hex.replace('#', '')
-  const value =
+  const val =
     normalized.length === 3
-      ? normalized
-          .split('')
-          .map((c) => c + c)
-          .join('')
+      ? normalized.split('').map((c) => c + c).join('')
       : normalized
-  const intVal = parseInt(value, 16)
-  return {
-    r: (intVal >> 16) & 255,
-    g: (intVal >> 8) & 255,
-    b: intVal & 255,
-  }
+  const int = parseInt(val, 16)
+  return { r: (int >> 16) & 255, g: (int >> 8) & 255, b: int & 255 }
 }
 
 function mixColors(colorA, colorB, ratio) {
@@ -61,64 +68,74 @@ function mixColors(colorA, colorB, ratio) {
   const r = Math.round(a.r * (1 - ratio) + b.r * ratio)
   const g = Math.round(a.g * (1 - ratio) + b.g * ratio)
   const bl = Math.round(a.b * (1 - ratio) + b.b * ratio)
-  return `rgb(${r}, ${g}, ${bl})`
+  return `rgb(${r},${g},${bl})`
 }
 
 function withAlpha(hex, alpha) {
-  const { r, g, b } = hexToRgb(hex)
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`
+  try {
+    const { r, g, b } = hexToRgb(hex)
+    return `rgba(${r},${g},${b},${alpha})`
+  } catch {
+    return `rgba(255,255,255,${alpha})`
+  }
 }
 
 export async function createLogoTexture({
   IconComponent,
   iconColor = '#ffffff',
-  backgroundColor = '#0a0a0a',
-  accentColor = '#3a3a3a',
+  backgroundColor = '#000000',
+  accentColor = '#555555',
 }) {
   const canvas = document.createElement('canvas')
-  canvas.width = TEXTURE_SIZE
-  canvas.height = TEXTURE_SIZE
+  canvas.width = TEXTURE_W
+  canvas.height = TEXTURE_H
   const ctx = canvas.getContext('2d')
 
   drawBackground(ctx, { backgroundColor, accentColor })
 
-  // Render react-icons component to SVG, then load as Image
+  // Render icon SVG
   const svgMarkup = renderToStaticMarkup(
     createElement(IconComponent, {
       color: iconColor,
-      size: TEXTURE_SIZE,
+      size: TEXTURE_W,
       style: { color: iconColor },
     })
   )
 
-  // Ensure proper xmlns for browser parsing
   const wrappedSvg = svgMarkup.includes('xmlns=')
     ? svgMarkup
     : svgMarkup.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"')
 
   try {
     const image = await loadImage(svgToDataUrl(wrappedSvg))
-    const iconSize = TEXTURE_SIZE * 0.52
-    const offset = (TEXTURE_SIZE - iconSize) / 2
 
-    // Soft glow shadow behind the icon
+    // Icon occupies ~55% of the canvas width, vertically centred in the upper half
+    const iconSize = TEXTURE_W * 0.55
+    const iconX = (TEXTURE_W - iconSize) / 2
+    const iconY = (TEXTURE_H - iconSize) / 2 - TEXTURE_H * 0.06
+
+    // Outer diffuse glow
     ctx.save()
-    ctx.shadowColor = withAlpha(iconColor, 0.45)
-    ctx.shadowBlur = TEXTURE_SIZE * 0.04
-    ctx.drawImage(image, offset, offset, iconSize, iconSize)
+    ctx.shadowColor = withAlpha(accentColor, 0.6)
+    ctx.shadowBlur = TEXTURE_W * 0.12
+    ctx.drawImage(image, iconX, iconY, iconSize, iconSize)
     ctx.restore()
 
-    // Subtle name caption below the icon
+    // Inner crisp pass (draw again without blur for sharpness)
+    ctx.save()
+    ctx.shadowColor = withAlpha(iconColor, 0.3)
+    ctx.shadowBlur = TEXTURE_W * 0.03
+    ctx.drawImage(image, iconX, iconY, iconSize, iconSize)
+    ctx.restore()
   } catch (error) {
-    // If SVG rendering fails, fill a placeholder rectangle
     ctx.fillStyle = withAlpha(iconColor, 0.35)
-    ctx.fillRect(TEXTURE_SIZE * 0.25, TEXTURE_SIZE * 0.25, TEXTURE_SIZE * 0.5, TEXTURE_SIZE * 0.5)
+    ctx.fillRect(TEXTURE_W * 0.25, TEXTURE_H * 0.3, TEXTURE_W * 0.5, TEXTURE_W * 0.5)
     console.warn('createLogoTexture: SVG render failed', error)
   }
 
   const texture = new THREE.CanvasTexture(canvas)
   texture.colorSpace = THREE.SRGBColorSpace
-  texture.anisotropy = 4
+  texture.anisotropy = 8
   texture.needsUpdate = true
   return texture
 }

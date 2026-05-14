@@ -1,325 +1,217 @@
+/* eslint-disable react/prop-types */
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { ExternalLink } from "lucide-react";
 import projects from "../utils/projects";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { CardContainer, CardBody, CardItem } from "@/components/ui/3d-card";
 import {
-	SiReact,
-	SiTailwindcss,
-	SiJavascript,
-	SiNodedotjs,
-	SiNextdotjs,
-	SiPython,
-	SiDjango,
-	SiTypescript,
-	SiGraphql,
-	SiDocker,
-	SiMongodb,
-	SiPostgresql,
-	SiRedux,
-	SiExpress,
-	SiAxios,
-	SiReactrouter,
-	SiCss,
-	SiStripe,
-	SiAndroidstudio,
-	SiFirebase,
+  SiReact, SiTailwindcss, SiJavascript, SiNodedotjs, SiNextdotjs,
+  SiPython, SiDjango, SiTypescript, SiGraphql, SiDocker, SiMongodb,
+  SiPostgresql, SiRedux, SiExpress, SiAxios, SiReactrouter, SiCss,
+  SiStripe, SiAndroidstudio, SiFirebase,
 } from "react-icons/si";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const techIcons = {
-	React: SiReact,
-	Tailwind: SiTailwindcss,
-	JavaScript: SiJavascript,
-	Node: SiNodedotjs,
-	NextJS: SiNextdotjs,
-	Python: SiPython,
-	Django: SiDjango,
-	TypeScript: SiTypescript,
-	GraphQL: SiGraphql,
-	Docker: SiDocker,
-	MongoDB: SiMongodb,
-	PostgreSQL: SiPostgresql,
-	Redux: SiRedux,
-	Express: SiExpress,
-	Axios: SiAxios,
-	ReactRouter: SiReactrouter,
-	CSS: SiCss,
-	Stripe: SiStripe,
-	Android: SiAndroidstudio,
-	Firebase: SiFirebase,
+  React: SiReact, Tailwind: SiTailwindcss, JavaScript: SiJavascript,
+  Node: SiNodedotjs, NextJS: SiNextdotjs, Python: SiPython, Django: SiDjango,
+  TypeScript: SiTypescript, GraphQL: SiGraphql, Docker: SiDocker,
+  MongoDB: SiMongodb, PostgreSQL: SiPostgresql, Redux: SiRedux,
+  Express: SiExpress, Axios: SiAxios, ReactRouter: SiReactrouter, CSS: SiCss,
+  Stripe: SiStripe, Android: SiAndroidstudio, Firebase: SiFirebase,
 };
 
+const ProjectCard = ({ proj, i }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.3, delay: i * 0.04 }}
+  >
+    <CardContainer containerClassName="py-2 w-full" className="w-full">
+      <CardBody className="h-auto w-full bg-[#0a0a0c] border border-white/[0.12] rounded-xl flex flex-col hover:border-white/[0.22] transition-colors duration-300">
+        {/* Thumbnail */}
+        <CardItem translateZ={30} className="w-full overflow-hidden rounded-t-xl flex-shrink-0">
+          <img
+            src={proj.picture || "/placeholder.svg"}
+            className="w-full h-44 object-cover transition-transform duration-500 hover:scale-105"
+            alt={proj.heading}
+          />
+        </CardItem>
+
+        {/* Body */}
+        <div className="p-5 flex flex-col flex-1">
+          {/* Title + status */}
+          <CardItem translateZ={50} className="w-full mb-2">
+            <div className="flex items-start justify-between gap-2">
+              <h3 className="text-[#fcfdff] font-helvetica font-bold text-sm leading-snug">
+                {proj.heading}
+              </h3>
+              <span
+                className={`flex-shrink-0 text-[10px] px-2 py-0.5 rounded-full font-helvetica ${
+                  proj.status === "Completed"
+                    ? "bg-[#11ff99]/10 text-[#11ff99] border border-[#11ff99]/20"
+                    : "bg-[#ffc53d]/10 text-[#ffc53d] border border-[#ffc53d]/20"
+                }`}
+              >
+                {proj.status}
+              </span>
+            </div>
+          </CardItem>
+
+          {/* Description */}
+          <CardItem translateZ={35} className="w-full mb-4 flex-1">
+            <p className="text-[rgba(252,253,255,0.45)] text-xs leading-relaxed font-helvetica line-clamp-2">
+              {proj.description}
+            </p>
+          </CardItem>
+
+          {/* Tech icons */}
+          <CardItem translateZ={40} className="w-full mb-4">
+            <div className="flex flex-wrap gap-1.5">
+              {proj.technologies.map((tech) => {
+                const Icon = techIcons[tech];
+                return Icon ? (
+                  <div
+                    key={tech}
+                    title={tech}
+                    className="w-7 h-7 flex items-center justify-center rounded bg-[#101012] border border-white/[0.07]"
+                  >
+                    <Icon className="w-3.5 h-3.5 text-[rgba(252,253,255,0.45)]" />
+                  </div>
+                ) : null;
+              })}
+            </div>
+          </CardItem>
+
+          {/* CTA */}
+          {proj.livelink && proj.livelink !== "none" && (
+            <CardItem translateZ={60} className="w-fit">
+              <a
+                href={proj.livelink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 h-8 px-3 bg-[#fcfdff] text-black font-monument font-black text-[9px] uppercase tracking-[0.15em] rounded hover:bg-[#e8eef8] transition-colors duration-200"
+              >
+                <ExternalLink size={11} />
+                Live Demo
+              </a>
+            </CardItem>
+          )}
+        </div>
+      </CardBody>
+    </CardContainer>
+  </motion.div>
+);
+
 const Projects = () => {
-	const [activeFilter, setActiveFilter] = useState("All");
+  const [activeFilter, setActiveFilter] = useState("All");
+  const sectionRef = useRef(null);
+  const glowRef = useRef(null);
 
-	// Get unique categories from projects
-	const getUniqueCategories = () => {
-		const categories = ["All"];
-		projects.forEach((project) => {
-			if (project.category && !categories.includes(project.category)) {
-				categories.push(project.category);
-			}
-		});
-		return categories;
-	};
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.to(glowRef.current, {
+        y: -50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.2,
+        },
+      });
+    });
+    return () => ctx.revert();
+  }, []);
 
-	const availableFilters = getUniqueCategories();
+  const availableFilters = ["All", ...new Set(projects.map((p) => p.category).filter(Boolean))];
+  const filteredProjects =
+    activeFilter === "All" ? projects : projects.filter((p) => p.category === activeFilter);
 
-	// Filter projects based on active filter
-	const filteredProjects = projects.filter((project) => {
-		if (activeFilter === "All") return true;
-		return project.category === activeFilter;
-	});
+  return (
+    <section ref={sectionRef} className="relative bg-black py-24 overflow-hidden">
+      <div
+        ref={glowRef}
+        className="pointer-events-none absolute inset-x-0 top-0 h-[520px]"
+        style={{
+          background:
+            "radial-gradient(ellipse 55% 40% at 50% 0%, rgba(255,197,61,0.07), transparent)",
+        }}
+      />
 
-	// Animation variants
-	const containerVariants = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.15,
-				duration: 0.3,
-			},
-		},
-	};
+      <div className="relative z-10 max-w-[1200px] mx-auto px-6 sm:px-8">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+        >
+          <p className="text-[#9DB4C0] font-monument font-light text-[10px] uppercase tracking-[0.28em] mb-4">
+            Portfolio
+          </p>
+          <h2 className="font-monument text-[clamp(1.6rem,4vw,2.8rem)] font-black leading-[1.0] tracking-[-0.01em] text-[#fcfdff] uppercase">
+            Selected Work
+          </h2>
+        </motion.div>
 
-	const itemVariants = {
-		hidden: { opacity: 0, y: 50, scale: 0.9 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			scale: 1,
-			transition: {
-				type: "spring",
-				stiffness: 100,
-				damping: 15,
-				duration: 0.4,
-			},
-		},
-	};
+        {/* Filter pills */}
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
+          {availableFilters.map((filter) => (
+            <button
+              key={filter}
+              onClick={() => setActiveFilter(filter)}
+              className={`px-4 py-1.5 rounded-full font-monument font-light text-[10px] uppercase tracking-[0.18em] transition-colors duration-200 ${
+                activeFilter === filter
+                  ? "bg-[#fcfdff] text-black"
+                  : "bg-[#0a0a0c] text-[rgba(252,253,255,0.6)] border border-white/[0.12] hover:border-white/[0.28] hover:text-[#fcfdff]"
+              }`}
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
 
-	const cardVariants = {
-		hidden: { opacity: 0, rotateY: -15 },
-		visible: {
-			opacity: 1,
-			rotateY: 0,
-			transition: {
-				type: "spring",
-				stiffness: 80,
-				damping: 20,
-				duration: 0.5,
-			},
-		},
-	};
-
-	const filterVariants = {
-		hidden: { opacity: 0, x: -20 },
-		visible: {
-			opacity: 1,
-			x: 0,
-			transition: {
-				duration: 0.3,
-			},
-		},
-	};
-
-	return (
-		<>
-			<div className="pt-10 bg-gradient-to-br from-gray-950 via-black to-gray-950">
-				<motion.div
-					className="mx-auto mt-32 text-center sm:mt-0"
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true }}
-					variants={containerVariants}
-				>
-					<motion.h2
-						className="text-4xl font-bold uppercase text-fuchsia-50 font-quicksand"
-						variants={itemVariants}
-						whileHover={{ scale: 1.05 }}
-						transition={{ duration: 0.2 }}
-					>
-						Projects
-					</motion.h2>
-
-					{/* Filter Buttons */}
-					<motion.div
-						className="flex flex-wrap justify-center gap-2 px-4 mt-8 mb-8 sm:gap-4"
-						variants={containerVariants}
-					>
-						{availableFilters.map((filter) => (
-							<motion.button
-								key={filter}
-								className={`px-3 sm:px-6 py-2 rounded-full font-medium transition-all duration-300 text-sm sm:text-base ${
-									activeFilter === filter
-										? "bg-custom-green text-black"
-										: "bg-gray-800 text-white hover:bg-gray-700"
-								}`}
-								variants={filterVariants}
-								whileHover={{ scale: 1.05 }}
-								whileTap={{ scale: 0.95 }}
-								onClick={() => setActiveFilter(filter)}
-							>
-								{filter}
-							</motion.button>
-						))}
-					</motion.div>
-				</motion.div>
-
-				<motion.div
-					className="w-full px-2 py-8 sm:px-4"
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true }}
-					variants={containerVariants}
-				>
-					{/* Projects Grid */}
-					{filteredProjects.length > 0 ? (
-						<AnimatePresence mode="wait">
-							<motion.div
-								key={activeFilter}
-								className="grid grid-cols-1 gap-4 mx-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-6 lg:gap-8 max-w-8xl"
-								layout
-								initial="hidden"
-								animate="visible"
-								exit="hidden"
-								variants={containerVariants}
-							>
-								{filteredProjects.map((proj) => (
-									<motion.div
-										key={`${activeFilter}-${proj.id}`}
-										className="w-full"
-										variants={cardVariants}
-										whileHover={{
-											y: -10,
-											transition: { duration: 0.3 },
-										}}
-										layout
-										initial="hidden"
-										animate="visible"
-										exit="hidden"
-									>
-										<motion.div
-											className="relative group/card hover:shadow-2xl hover:shadow-emerald-700/[0.5] bg-black border-white/[0.2] w-full h-auto rounded-xl p-3 sm:p-4 border"
-											whileHover={{
-												scale: 1.02,
-												boxShadow: "0 25px 50px -12px rgba(16, 185, 129, 0.3)",
-												transition: { duration: 0.3 },
-											}}
-										>
-											<motion.div
-												className="w-full"
-												whileHover={{ scale: 1.05 }}
-												transition={{ duration: 0.3 }}
-											>
-												<img
-													src={proj.picture || "/placeholder.svg"}
-													className="object-cover w-full h-48 sm:h-60 rounded-xl group-hover/card:shadow-xl"
-													alt="thumbnail"
-												/>
-											</motion.div>
-
-											{/* Project Heading */}
-											<div className="flex items-center justify-center">
-												<div className="mt-3 text-lg font-bold text-center sm:mt-4 sm:text-xl font-quicksand text-custom-green">
-													{proj.heading}
-												</div>
-											</div>
-
-											{/* Project Description */}
-											<div className="flex items-center justify-center">
-												<p className="max-w-sm px-2 mt-2 text-sm text-center text-white sm:text-md font-cormorant">
-													{proj.description}
-												</p>
-											</div>
-
-											{/* Project Status */}
-											<div className="flex items-center justify-center">
-												<div className="max-w-sm p-2 mt-1 text-sm text-black rounded-xl dark:text-neutral-300">
-													<span
-														className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${
-															proj.status === "Completed"
-																? "bg-green-900 text-green-400"
-																: "bg-yellow-900 text-yellow-400"
-														}`}
-													>
-														{proj.status}
-													</span>
-												</div>
-											</div>
-
-											{/* Tech Stack Icons */}
-											<div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-3 sm:mt-4 px-2 sm:px-4 max-w-full">
-												{proj.technologies.map((tech, index) => {
-													const IconComponent = techIcons[tech];
-													return IconComponent ? (
-														<div
-															key={index}
-															className="p-1 sm:p-1.5 bg-gray-800 rounded-full hover:bg-gray-700 transition-all duration-300 flex-shrink-0"
-															title={tech}
-														>
-															<IconComponent className="w-4 h-4 sm:w-6 sm:h-6 text-custom-deep-purple" />
-														</div>
-													) : null;
-												})}
-											</div>
-
-											<div className="flex items-center justify-center pt-4 sm:pt-6">
-												{proj.livelink && (
-													<motion.button
-														className="rounded-full flex h-8 sm:h-10 animate-shimmer items-center justify-center border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-3 sm:px-4 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
-														whileHover={{ scale: 1.05 }}
-														whileTap={{ scale: 0.95 }}
-														transition={{ duration: 0.2 }}
-													>
-														<a
-															href={proj.livelink}
-															target="_blank"
-															rel="noopener noreferrer"
-															className="text-xs sm:text-sm"
-														>
-															Live Link
-														</a>
-													</motion.button>
-												)}
-											</div>
-										</motion.div>
-									</motion.div>
-								))}
-							</motion.div>
-						</AnimatePresence>
-					) : (
-						/* No projects message */
-						<AnimatePresence mode="wait">
-							<motion.div
-								key="no-projects"
-								className="py-16 mt-8 text-xl text-center text-white"
-								initial={{ opacity: 0, y: 20 }}
-								animate={{ opacity: 1, y: 0 }}
-								exit={{ opacity: 0, y: -20 }}
-								transition={{ duration: 0.5 }}
-							>
-								<div className="max-w-md mx-auto">
-									<h3 className="mb-4 text-2xl font-bold text-gray-300">
-										No Projects Found
-									</h3>
-									<p className="text-gray-400">
-										No projects found for &ldquo;{activeFilter}&rdquo; category.
-									</p>
-									<motion.button
-										className="px-6 py-2 mt-6 font-medium text-black transition-all duration-300 rounded-full bg-custom-green hover:bg-green-400"
-										whileHover={{ scale: 1.05 }}
-										whileTap={{ scale: 0.95 }}
-										onClick={() => setActiveFilter("All")}
-									>
-										Show All Projects
-									</motion.button>
-								</div>
-							</motion.div>
-						</AnimatePresence>
-					)}
-				</motion.div>
-			</div>
-		</>
-	);
+        <AnimatePresence mode="wait">
+          {filteredProjects.length > 0 ? (
+            <motion.div
+              key={activeFilter}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+            >
+              {filteredProjects.map((proj, i) => (
+                <ProjectCard key={`${activeFilter}-${proj.id}`} proj={proj} i={i} />
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              key="empty"
+              className="py-20 text-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <p className="text-[rgba(252,253,255,0.45)] font-helvetica text-base mb-4">
+                No projects in &ldquo;{activeFilter}&rdquo;
+              </p>
+              <button
+                onClick={() => setActiveFilter("All")}
+                className="h-9 px-5 bg-[#fcfdff] text-black font-monument font-black text-[10px] uppercase tracking-[0.18em] rounded-md hover:bg-[#e8eef8] transition-colors duration-200"
+              >
+                Show All
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
+  );
 };
 
 export default Projects;
