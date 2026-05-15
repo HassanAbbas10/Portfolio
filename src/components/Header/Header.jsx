@@ -46,7 +46,7 @@ const Header = () => {
                 smooth={true}
                 duration={600}
                 offset={-64}
-                className="font-monument font-light text-[10px] text-[rgba(252,253,255,0.45)] uppercase tracking-[0.22em] cursor-pointer hover:text-[#fcfdff] transition-colors duration-200"
+                className="font-monument font-light text-[10px] text-[rgba(252,253,255,0.75)] uppercase tracking-[0.22em] cursor-pointer hover:text-[#fcfdff] transition-colors duration-200"
               >
                 {label}
               </Link>
@@ -54,15 +54,14 @@ const Header = () => {
           </nav>
 
           {/* CTA */}
-          <Link
-            to="contact"
-            smooth={true}
-            duration={600}
-            offset={-64}
+          <a
+            href="https://www.upwork.com/freelancers/~01554a69ff2ad3f532"
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:inline-flex items-center h-8 px-4 shrink-0 rounded border border-white/[0.18] font-monument font-black text-[10px] text-[#fcfdff] uppercase tracking-[0.18em] cursor-pointer hover:bg-white/[0.06] transition-colors duration-200"
           >
             Hire Me
-          </Link>
+          </a>
 
           {/* Mobile hamburger */}
           <button
@@ -97,22 +96,21 @@ const Header = () => {
                 duration={600}
                 offset={-64}
                 onClick={() => setMenuOpen(false)}
-                className="font-monument font-light text-xs text-[rgba(252,253,255,0.6)] uppercase tracking-[0.22em] cursor-pointer hover:text-[#fcfdff] transition-colors"
+                className="font-monument font-light text-xs text-[rgba(252,253,255,0.78)] uppercase tracking-[0.22em] cursor-pointer hover:text-[#fcfdff] transition-colors"
               >
                 {label}
               </Link>
             ))}
             <div className="pt-2">
-              <Link
-                to="contact"
-                smooth={true}
-                duration={600}
-                offset={-64}
+              <a
+                href="https://www.upwork.com/freelancers/~01554a69ff2ad3f532"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setMenuOpen(false)}
                 className="inline-flex items-center h-9 px-5 border border-white/[0.18] rounded font-monument font-black text-[10px] text-[#fcfdff] uppercase tracking-[0.18em] cursor-pointer hover:bg-white/[0.06] transition-colors"
               >
                 Hire Me
-              </Link>
+              </a>
             </div>
           </nav>
         </div>

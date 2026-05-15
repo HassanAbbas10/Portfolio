@@ -134,6 +134,11 @@ export default function EntryLoader({ onFinished, minimumDuration = 0 }) {
   const progressRef = useRef(0);
   const mountTime = useRef(Date.now());
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, []);
+
   // Step progression
   useEffect(() => {
     if (exiting) return;

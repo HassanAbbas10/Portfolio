@@ -39,12 +39,12 @@ const Footer = () => {
             <span className="font-monument font-black text-[13px] text-[#fcfdff] uppercase tracking-[0.22em]">
               Hassan Abbas
             </span>
-            <p className="font-monument font-light text-[10px] text-[rgba(252,253,255,0.35)] uppercase tracking-[0.18em] leading-relaxed">
+            <p className="font-monument font-light text-[10px] text-[rgba(252,253,255,0.65)] uppercase tracking-[0.18em] leading-relaxed">
               Full-Stack Developer
               <br />
               MERN Stack
             </p>
-            <p className="font-helvetica text-[11px] text-[rgba(252,253,255,0.2)]">
+            <p className="font-helvetica text-[11px] text-[rgba(252,253,255,0.5)]">
               &copy; {new Date().getFullYear()}
             </p>
           </div>
@@ -60,7 +60,7 @@ const Footer = () => {
                       smooth={true}
                       duration={600}
                       offset={-64}
-                      className="font-monument font-light text-[10px] text-[rgba(252,253,255,0.38)] uppercase tracking-[0.18em] cursor-pointer hover:text-[#fcfdff] transition-colors duration-200"
+                      className="font-monument font-light text-[10px] text-[rgba(252,253,255,0.72)] uppercase tracking-[0.18em] cursor-pointer hover:text-[#fcfdff] transition-colors duration-200"
                     >
                       {label}
                     </Link>
@@ -82,7 +82,7 @@ const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="w-8 h-8 flex items-center justify-center rounded border border-white/[0.1] text-[rgba(252,253,255,0.45)] hover:text-[#fcfdff] hover:border-white/[0.25] transition-colors duration-200"
+                    className="w-8 h-8 flex items-center justify-center rounded border border-white/[0.22] text-[rgba(252,253,255,0.72)] hover:text-[#fcfdff] hover:border-white/[0.4] transition-colors duration-200"
                   >
                     <Icon size={13} />
                   </a>
@@ -91,7 +91,7 @@ const Footer = () => {
 
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#11ff99] animate-pulse shrink-0" />
-              <span className="font-monument font-light text-[9px] text-[rgba(252,253,255,0.4)] uppercase tracking-[0.2em]">
+              <span className="font-monument font-light text-[9px] text-[rgba(252,253,255,0.68)] uppercase tracking-[0.2em]">
                 Available for work
               </span>
             </div>
@@ -101,7 +101,7 @@ const Footer = () => {
 
         {/* Bottom silver rule */}
         <div className="mt-12 h-px" style={{ background: silverLine }} />
-        <p className="mt-4 font-monument font-light text-[9px] text-[rgba(252,253,255,0.18)] uppercase tracking-[0.2em] text-center">
+        <p className="mt-4 font-monument font-light text-[9px] text-[rgba(252,253,255,0.45)] uppercase tracking-[0.2em] text-center">
           Built with React &amp; Three.js
         </p>
       </div>
