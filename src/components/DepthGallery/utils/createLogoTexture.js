@@ -6,9 +6,17 @@ import { renderToStaticMarkup } from 'react-dom/server'
 const TEXTURE_W = 768
 const TEXTURE_H = 1024
 
-function drawBackground(ctx, { backgroundColor, accentColor }) {
-  // Deep base fill
+function drawBackground(ctx, { backgroundColor, accentColor, blob1Color, blob2Color }) {
+  // Deep dark base
   ctx.fillStyle = backgroundColor
+  ctx.fillRect(0, 0, TEXTURE_W, TEXTURE_H)
+
+  // Diagonal gradient from blob1 (top-left) to blob2 (bottom-right)
+  const linearGrad = ctx.createLinearGradient(0, 0, TEXTURE_W, TEXTURE_H)
+  linearGrad.addColorStop(0, withAlpha(blob1Color, 0.30))
+  linearGrad.addColorStop(0.5, withAlpha(mixColors(blob1Color, blob2Color, 0.5), 0.20))
+  linearGrad.addColorStop(1, withAlpha(blob2Color, 0.25))
+  ctx.fillStyle = linearGrad
   ctx.fillRect(0, 0, TEXTURE_W, TEXTURE_H)
 
   // Main radial glow centred in the upper third where the icon lives
@@ -85,13 +93,15 @@ export async function createLogoTexture({
   iconColor = '#ffffff',
   backgroundColor = '#000000',
   accentColor = '#555555',
+  blob1Color = '#333333',
+  blob2Color = '#111111',
 }) {
   const canvas = document.createElement('canvas')
   canvas.width = TEXTURE_W
   canvas.height = TEXTURE_H
   const ctx = canvas.getContext('2d')
 
-  drawBackground(ctx, { backgroundColor, accentColor })
+  drawBackground(ctx, { backgroundColor, accentColor, blob1Color, blob2Color })
 
   // Render icon SVG
   const svgMarkup = renderToStaticMarkup(

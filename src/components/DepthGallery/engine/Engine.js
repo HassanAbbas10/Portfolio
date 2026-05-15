@@ -92,6 +92,8 @@ export class Engine {
             iconColor: plane.iconColor || '#ffffff',
             backgroundColor: plane.backgroundColor || '#0a0a0a',
             accentColor: plane.accentColor || '#3a3a3a',
+            blob1Color: plane.blob1Color || '#333333',
+            blob2Color: plane.blob2Color || '#111111',
           })
           loadedTextures.set(plane.name, texture)
         } catch (error) {
