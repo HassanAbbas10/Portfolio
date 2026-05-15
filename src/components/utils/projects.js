@@ -136,20 +136,44 @@ const projects = [
 
 export const experiences = [
 	{
-		id: 1,
-		title: "MERN Stack Developer",
-		company: "Void Soft Technologies",
-		location: "Rahim Yar Khan, Punjab",
-		duration: "MAY 2025 – Present",
+		id: 0,
+		title: "Associate Software Engineer",
+		company: "Developer Tag",
+		location: "Lahore, Pakistan",
+		duration: "OCT 2025 – Present",
 		description:
-			"Currently Working on building a full Stack e commerce platform with admin dashboard for the Products Handling",
+			"Engineering AI-powered platforms and enterprise security systems, leveraging modern full-stack technologies and multi-AI orchestration pipelines.",
 		achievements: [
-			"Building comprehensive e-commerce platform from scratch",
-			"Developing admin dashboard for efficient product management",
-			"Implementing full-stack architecture with modern technologies",
-			"Ensuring scalable and maintainable code structure",
+			"Engineered AimDiscovery, an AI-powered e-commerce discovery platform with 10+ product analysis modules and real-time trend tracking across 3+ data sources (X/Twitter, Amazon, Google Trends)",
+			"Integrated Grok AI for intelligent market analysis across 5+ global market regions",
+			"Contributed to the frontend of an enterprise-scale security platform serving 5+ client organizations across 8+ distinct portals for multiple user roles",
 		],
-technologies: [
+		technologies: [
+			"Next.js",
+			"React",
+			"NestJS",
+			"PostgreSQL",
+			"Drizzle ORM",
+			"Grok AI",
+			"Meshy AI",
+			"Stripe",
+			"TypeScript",
+		],
+	},
+	{
+		id: 1,
+		title: "Full Stack Software Engineer",
+		company: "Void Soft Technologies",
+		location: "Pakistan",
+		duration: "JUN 2025 – SEP 2025",
+		description:
+			"Built a scalable e-commerce platform with an admin dashboard, systematized business workflows, and boosted web application performance.",
+		achievements: [
+			"Built a scalable e-commerce platform with an admin dashboard managing 20+ products, cutting manual processing effort by 15%",
+			"Reduced inventory processing time by 10% and systematized key business workflow processes",
+			"Boosted performance scores by 20% across two web applications",
+		],
+		technologies: [
 			"React",
 			"Node.js",
 			"MongoDB",
