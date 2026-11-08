@@ -1,10 +1,11 @@
 import { ArrowDown, ArrowUpRight, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { socialLinks } from "../utils/projects";
+import PropTypes from "prop-types";
 
-const About = () => (
+const About = ({ theme }) => (
   <section id="about" className="hero-section" aria-labelledby="profile-name">
     <div className="hero-art" aria-hidden="true">
-      <img src="/artwork.svg" alt="" width="1360" height="360" />
+      <img src={theme === "dark" ? "/projects/ponyo-loves-ham.gif" : "/projects/sleepy-cat-animation.gif"} alt="" width="1360" height="360" />
       <span className="art-monogram">ha.</span>
       <span className="art-caption">A little curiosity. A lot of building.</span>
       <span className="art-spark">✳</span>
@@ -42,3 +43,7 @@ const About = () => (
 );
 
 export default About;
+
+About.propTypes = {
+  theme: PropTypes.oneOf(["light", "dark"]).isRequired,
+};

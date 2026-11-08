@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Github, Globe, LayoutGrid, Rows3 } from "lucide-react";
-import PropTypes from "prop-types";
 import projects from "../utils/projects";
 
-const Projects = ({ theme }) => {
+const Projects = () => {
   const shelfRef = useRef(null);
   const [showAll, setShowAll] = useState(false);
   const [position, setPosition] = useState({ first: true, last: false, index: 1 });
@@ -51,7 +50,7 @@ const Projects = ({ theme }) => {
       <div ref={shelfRef} id="projects-list" className={showAll ? "project-grid" : "project-shelf"} onScroll={showAll ? undefined : updatePosition} role="region" aria-label={showAll ? "All projects" : "Project gallery, scroll to explore"} tabIndex={showAll ? undefined : 0}>
         {projects.map((project, index) => {
           const liveLink = project.livelink?.startsWith("https://") ? project.livelink : null;
-          const media = <img src={theme === "dark" ? "/projects/ponyo-loves-ham.gif" : "/projects/sleepy-cat-animation.gif"} alt={`${project.heading} preview`} width="1200" height="630" loading={index < 2 ? "eager" : "lazy"} decoding="async" />;
+          const media = <img src={project.picture} alt={`${project.heading} preview`} width="1200" height="630" loading={index < 2 ? "eager" : "lazy"} decoding="async" />;
           return (
             <article className="project-card" key={project.id}>
               {liveLink ? <a href={liveLink} target="_blank" rel="noopener noreferrer" className="project-image" aria-label={`Visit ${project.heading}`}>
@@ -85,7 +84,3 @@ const Projects = ({ theme }) => {
 };
 
 export default Projects;
-
-Projects.propTypes = {
-  theme: PropTypes.oneOf(["light", "dark"]).isRequired,
-};

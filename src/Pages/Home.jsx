@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 
 const Home = ({ theme }) => (
   <main id="main-content">
-    <About />
-    <Projects theme={theme} />
+    <About theme={theme} />
+    <Projects />
     <Experience />
     <Skills />
     <Contact />
