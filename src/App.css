@@ -57,7 +57,8 @@ h1, h2, h3, p { margin: 0; }
 .profile-copy .profile-lead { color: var(--ink); font-weight: 500; font-size: 15px; margin-bottom: 13px; }
 .profile-copy a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; transition: color .2s; }
 .profile-copy a:hover { color: var(--green); text-decoration-color: var(--green); }
-.profile-copy a svg { display: inline-block; vertical-align: -1px; }
+.profile-copy a svg { display: inline-block; vertical-align: -2px; margin-right: 3px; }
+.profile-copy a svg + svg { margin-right: 0; margin-left: 2px; }
 .profile-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; gap: 12px; }
 .profile-socials { display: flex; align-items: center; gap: 17px; }
 .profile-socials > a { color: var(--muted); display: inline-flex; padding: 3px 0; transition: color .2s, transform .2s; }

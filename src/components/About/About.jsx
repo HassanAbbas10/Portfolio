@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUpRight, Github, Linkedin, Mail, MapPin } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Building2, Globe2, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { socialLinks } from "../utils/projects";
 import PropTypes from "prop-types";
 
@@ -32,7 +32,7 @@ const About = ({ theme }) => (
     <div className="profile-copy">
       <p className="profile-lead">I turn ideas into things you can actually use.</p>
       <p>I’m Hassan, a full-stack developer based in Pakistan. I build web apps with React, Next.js, and Node.js, with a soft spot for thoughtful interfaces and the details that make a product feel right.</p>
-      <p>Currently building AI-powered platforms at <a href="#experience">Developer Tag</a>. On the side, I’m working on <a href="https://dueradar.cc" target="_blank" rel="noopener noreferrer">DueRadar <ArrowUpRight size={12} aria-hidden="true" /></a> and <a href="https://bundle-back.vercel.app/" target="_blank" rel="noopener noreferrer">BundleBack <ArrowUpRight size={12} aria-hidden="true" /></a>. Always up for an interesting problem.</p>
+      <p>Currently building AI-powered platforms at <a href="#experience"><Building2 size={12} aria-hidden="true" />Developer Tag</a>. On the side, I’m working on <a href="https://dueradar.cc" target="_blank" rel="noopener noreferrer"><Globe2 size={12} aria-hidden="true" />DueRadar <ArrowUpRight size={12} aria-hidden="true" /></a> and <a href="https://bundle-back.vercel.app/" target="_blank" rel="noopener noreferrer"><Globe2 size={12} aria-hidden="true" />BundleBack <ArrowUpRight size={12} aria-hidden="true" /></a>. Always up for an interesting problem.</p>
     </div>
 
     <div className="profile-bottom">
