@@ -79,7 +79,7 @@ const App = () => {
       <div inert={introFinished ? undefined : ""} aria-hidden={introFinished ? undefined : true}>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <div className="page-column">
-          <Home />
+          <Home theme={theme} />
         </div>
         <Footer />
         <Header theme={theme} onToggleTheme={toggleTheme} />
