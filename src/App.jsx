@@ -3,9 +3,11 @@ import { flushSync } from "react-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./Pages/Home";
+import useSmoothScroll from "./lib/useSmoothScroll";
 import "./App.css";
 
 const App = () => {
+  const smoothScroll = useSmoothScroll();
   const isThemeTransitioning = useRef(false);
   const [theme, setTheme] = useState(() => {
     try {
@@ -33,6 +35,8 @@ const App = () => {
       return;
     }
 
+    // Settle wheel inertia so both theme snapshots capture the same scroll position.
+    smoothScroll.current?.scrollTo(window.scrollY, { immediate: true });
     const bounds = event.currentTarget.getBoundingClientRect();
     const x = bounds.left + bounds.width / 2;
     const y = bounds.top + bounds.height / 2;

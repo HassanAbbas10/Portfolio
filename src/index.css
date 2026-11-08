@@ -4,7 +4,7 @@
 
 @layer base {
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 36px; }
+  html { scroll-behavior: auto; scroll-padding-top: 36px; }
   body { margin: 0; background: #faf9f6; font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
   button, input, textarea { font: inherit; }
   button, a { -webkit-tap-highlight-color: transparent; }
@@ -30,7 +30,8 @@ html.theme-changing::view-transition-old(root) { z-index: 1; }
 
 html.theme-changing::view-transition-new(root) {
   z-index: 2;
-  animation: reveal-theme 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: reveal-theme 1s linear both;
+  will-change: clip-path;
 }
 
 html.theme-changing::view-transition { pointer-events: none; }
@@ -39,6 +40,7 @@ html.theme-changing::view-transition { pointer-events: none; }
 html.theme-changing .portfolio,
 html.theme-changing .portfolio * {
   transition: none !important;
+  animation-play-state: paused !important;
 }
 
 @keyframes reveal-theme {
