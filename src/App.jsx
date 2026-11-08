@@ -1,62 +1,36 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./Pages/Home";
 import "./App.css";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import Lenis from "lenis";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
-
-const Layout = () => {
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      touchMultiplier: 2,
-    });
-
-    lenis.on("scroll", ScrollTrigger.update);
-
-    const tick = (time) => lenis.raf(time * 1000);
-    gsap.ticker.add(tick);
-    gsap.ticker.lagSmoothing(0);
-
-    return () => {
-      lenis.destroy();
-      gsap.ticker.remove(tick);
-    };
-  }, []);
-
-  return (
-    <div className="bg-black app">
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
-  );
-};
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-    ],
-  },
-]);
 
 const App = () => {
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem("portfolio-theme") === "dark" ? "dark" : "light";
+    } catch {
+      return "light";
+    }
+  });
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "light" ? "dark" : "light";
+    setTheme(nextTheme);
+    try {
+      localStorage.setItem("portfolio-theme", nextTheme);
+    } catch {
+      // The theme still works when browser storage is unavailable.
+    }
+  };
+
   return (
-    <div>
-      <RouterProvider router={router} />
+    <div className="portfolio" data-theme={theme}>
+      <a className="skip-link" href="#main-content">Skip to content</a>
+      <div className="page-column">
+        <Home />
+        <Footer />
+      </div>
+      <Header theme={theme} onToggleTheme={toggleTheme} />
     </div>
   );
 };

@@ -1,15 +1,3 @@
-import {
-	dj,
-	bookshop,
-	shop,
-	Farm,
-	Paradise,
-	Eventify,
-	Slideshare,
-	Exclusive,
-	FullStackEco,
-} from "../../assets/index";
-
 export const words = ["I am a React Js Developer", "Specializing in Front-end"];
 
 export const socialLinks = {
@@ -37,10 +25,34 @@ export const skill = [
 
 const projects = [
 	{
+		id: "dueradar",
+		picture: "/projects/dueradar.png",
+		heading: "DueRadar",
+		description:
+			"Keep assignments, applications, renewals, and everyday deadlines in view with preparation dates and email reminders.",
+		livelink: "https://dueradar.cc/",
+		status: "Live",
+		category: "Productivity app",
+		technologies: ["Next.js"],
+		featured: true,
+	},
+	{
+		id: "bundleback",
+		picture: "/projects/bundleback.png",
+		heading: "BundleBack",
+		description:
+			"Track resale bundles from purchase to break-even, accounting for sales, fees, postage, refunds, and extra costs.",
+		livelink: "https://bundle-back.vercel.app/",
+		status: "Live",
+		category: "Reseller web app",
+		technologies: ["Next.js", "Polar"],
+		featured: true,
+	},
+	{
 		id: 1,
-		picture: shop,
+		picture: "/projects/dev-shop.webp",
 		heading: "Dev-Shop",
-		description: "ecommerce sites made with using data from the dummyjson api",
+		description: "An e-commerce storefront built with React, with product data from the DummyJSON API.",
 		gitrepo: "https://github.com/HassanAbbas10/DevShop.git",
 		livelink: "https://dev-shop10.netlify.app/",
 		status: "Completed",
@@ -49,10 +61,10 @@ const projects = [
 	},
 	{
 		id: 2,
-		picture: bookshop,
+		picture: "/projects/word-stock.webp",
 		heading: "Word-Stock",
 		description:
-			"BookStore made with Google Books api with search functionality",
+			"A searchable bookstore powered by the Google Books API. Find your next read in a clean, simple interface.",
 		gitrepo: "https://github.com/HassanAbbas10/Word-Stock.git",
 		livelink: "https://word-stock.netlify.app/",
 		status: "Completed",
@@ -61,10 +73,10 @@ const projects = [
 	},
 	{
 		id: 3,
-		picture: dj,
+		picture: "/projects/domain.webp",
 		heading: "Domain Jourdan",
 		description:
-			"From Figma to UI using Tailwind, Functionality needs to be added",
+			"A responsive interface translated from Figma into React and Tailwind CSS, with a focus on the visual details.",
 		gitrepo: "https://github.com/HassanAbbas10/Domain-Jourdan.git",
 		livelink: "https://domain-jourdan.netlify.app/",
 		status: "Completed",
@@ -74,9 +86,9 @@ const projects = [
 
 	{
 		id: 5,
-		picture: Paradise,
+		picture: "/projects/paradise.webp",
 		heading: "Prize Paradise",
-		description: "Perfectky replicate the UI of the prize paradise website",
+		description: "A faithful recreation of the Prize Paradise interface, built with React and Tailwind CSS.",
 		livelink: "https://uk-paradise.netlify.app/",
 		status: "Completed",
 		category: "WEB",
@@ -84,10 +96,10 @@ const projects = [
 	},
 	{
 		id: 6,
-		picture: Eventify,
+		picture: "/projects/eventify.webp",
 		heading: "Eventify",
 		description:
-			"Event Ticketing Platform with Stripe payment gateway with Admin Dashboard in React",
+			"An event ticketing platform with Stripe payments and a React admin dashboard for managing events.",
 		status: "Completed",
 		category: "Mobile",
 		technologies: [
@@ -103,9 +115,9 @@ const projects = [
 	},
 	{
 		id: 7,
-		picture: Slideshare,
+		picture: "/projects/slideshare.webp",
 		heading: "Slideshare",
-		description: "Made better UI of the slideshare Website",
+		description: "A fresh take on the SlideShare interface, exploring a cleaner layout and responsive browsing experience.",
 		livelink: "https://slideshare10.netlify.app/",
 		status: "Completed",
 		category: "WEB",
@@ -113,9 +125,9 @@ const projects = [
 	},
 	{
 		id: 8,
-		picture: Exclusive,
+		picture: "/projects/exclusive.webp",
 		heading: "Exclusive Store",
-		description: "FrontEnd of the E commerce Website",
+		description: "A responsive e-commerce frontend with a clean storefront, built in React and Tailwind CSS.",
 		livelink: "https://exclusive-task10.netlify.app/",
 		status: "Completed",
 		category: "WEB",
@@ -123,10 +135,10 @@ const projects = [
 	},
 	{
 		id: 9,
-		picture: FullStackEco,
+		picture: "/projects/fullstack-ecommerce.webp",
 		heading: "Full Stack Ecommerce Dashboard",
 		description:
-			"Beautiful and Robust Admin Dashboard for the E-commerce Website",
+			"A full-stack e-commerce admin dashboard, bringing together React, Node.js, Express, and MongoDB.",
 		livelink: "none",
 		status: "In Progress",
 		category: "Fullstack",

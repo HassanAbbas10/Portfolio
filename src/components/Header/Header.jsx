@@ -1,122 +1,53 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-scroll";
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, BriefcaseBusiness, FolderOpen, Home, Moon, Sun } from "lucide-react";
+import { socialLinks } from "../utils/projects";
 
-const navLinks = [
-  { to: "about", label: "About" },
-  { to: "experience", label: "Experience" },
-  { to: "stack", label: "Stack" },
-  { to: "projects", label: "Projects" },
-  { to: "skills", label: "Skills" },
-  { to: "contact", label: "Contact" },
+const navigation = [
+  { href: "#about", label: "About", Icon: Home },
+  { href: "#projects", label: "Projects", Icon: FolderOpen },
+  { href: "#experience", label: "Experience", Icon: BriefcaseBusiness },
 ];
 
-const silverLine =
-  "linear-gradient(90deg, transparent 0%, rgba(180,185,195,0.12) 10%, rgba(210,215,225,0.45) 35%, rgba(235,238,245,0.65) 50%, rgba(210,215,225,0.45) 65%, rgba(180,185,195,0.12) 90%, transparent 100%)";
-
-const Header = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+const Header = ({ theme, onToggleTheme }) => {
+  const [activeSection, setActiveSection] = useState("about");
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting);
+      if (visible.length) setActiveSection(visible[0].target.id);
+    }, { rootMargin: "-12% 0px -55% 0px", threshold: 0 });
+    document.querySelectorAll("main > section").forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
-      {/* Main bar */}
-      <div
-        className={`h-16 flex items-center transition-all duration-300 ${
-          scrolled ? "bg-black/96 backdrop-blur-md" : "bg-transparent"
-        }`}
-      >
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-8 w-full flex items-center justify-between gap-8">
-          {/* Wordmark */}
-          <span className="font-monument font-black text-[13px] text-[#fcfdff] uppercase tracking-[0.22em] select-none shrink-0">
-            Hassan Abbas
-          </span>
-
-          {/* Desktop nav — centered */}
-          <nav className="hidden md:flex items-center gap-6 flex-1 justify-center">
-            {navLinks.map(({ to, label }) => (
-              <Link
-                key={to}
-                to={to}
-                smooth={true}
-                duration={600}
-                offset={-64}
-                className="font-monument font-light text-[10px] text-[rgba(252,253,255,0.75)] uppercase tracking-[0.22em] cursor-pointer hover:text-[#fcfdff] transition-colors duration-200"
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* CTA */}
-          <a
-            href="https://www.upwork.com/freelancers/~01554a69ff2ad3f532"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center h-8 px-4 shrink-0 rounded border border-white/[0.18] font-monument font-black text-[10px] text-[#fcfdff] uppercase tracking-[0.18em] cursor-pointer hover:bg-white/[0.06] transition-colors duration-200"
-          >
-            Hire Me
+    <header className="floating-dock">
+      <nav className="dock-inner" aria-label="Main navigation">
+        <a href="#about" className="dock-identity" aria-label="Hassan Abbas, back to top">
+          <img src="/profile.webp" alt="" width="28" height="28" />
+          <span>Hassan Abbas</span>
+        </a>
+        <span className="dock-divider identity-divider" />
+        {navigation.map(({ href, label, Icon }) => (
+          <a key={href} href={href} className={`dock-icon ${activeSection === href.slice(1) ? "is-active" : ""}`} aria-label={label} aria-current={activeSection === href.slice(1) ? "location" : undefined}>
+            <Icon size={16} aria-hidden="true" /><span className="dock-tooltip">{label}</span>
           </a>
-
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden flex flex-col gap-[5px] w-5 text-[#fcfdff]"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
-          >
-            <span className={`block h-px bg-current transition-all duration-200 origin-center ${menuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-            <span className={`block h-px bg-current transition-all duration-200 ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block h-px bg-current transition-all duration-200 origin-center ${menuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
-          </button>
-        </div>
-      </div>
-
-      {/* Silver lining */}
-      <div
-        className={`h-px w-full transition-opacity duration-300 ${scrolled ? "opacity-100" : "opacity-0"}`}
-        style={{ background: silverLine }}
-      />
-
-      {/* Mobile dropdown */}
-      {menuOpen && (
-        <div className="bg-black/98 backdrop-blur-md border-b border-white/[0.06] py-6 px-6 md:hidden">
-          {/* Silver accent */}
-          <div className="h-px mb-6" style={{ background: silverLine }} />
-          <nav className="flex flex-col gap-4">
-            {navLinks.map(({ to, label }) => (
-              <Link
-                key={to}
-                to={to}
-                smooth={true}
-                duration={600}
-                offset={-64}
-                onClick={() => setMenuOpen(false)}
-                className="font-monument font-light text-xs text-[rgba(252,253,255,0.78)] uppercase tracking-[0.22em] cursor-pointer hover:text-[#fcfdff] transition-colors"
-              >
-                {label}
-              </Link>
-            ))}
-            <div className="pt-2">
-              <a
-                href="https://www.upwork.com/freelancers/~01554a69ff2ad3f532"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMenuOpen(false)}
-                className="inline-flex items-center h-9 px-5 border border-white/[0.18] rounded font-monument font-black text-[10px] text-[#fcfdff] uppercase tracking-[0.18em] cursor-pointer hover:bg-white/[0.06] transition-colors"
-              >
-                Hire Me
-              </a>
-            </div>
-          </nav>
-        </div>
-      )}
+        ))}
+        <span className="dock-divider" />
+        <button type="button" className="dock-icon" onClick={onToggleTheme} aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}>
+          {theme === "light" ? <Moon size={16} aria-hidden="true" /> : <Sun size={16} aria-hidden="true" />}
+          <span className="dock-tooltip">{theme === "light" ? "Dark mode" : "Light mode"}</span>
+        </button>
+        <a className="dock-contact" href={socialLinks.email}>Let’s talk <ArrowUpRight size={14} aria-hidden="true" /></a>
+      </nav>
     </header>
   );
+};
+
+Header.propTypes = {
+  theme: PropTypes.oneOf(["light", "dark"]).isRequired,
+  onToggleTheme: PropTypes.func.isRequired,
 };
 
 export default Header;

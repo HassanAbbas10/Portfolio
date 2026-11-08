@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="360" viewBox="0 0 1360 360" fill="none">
+  <defs>
+    <linearGradient id="base" x1="0" y1="360" x2="1280" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#e99b4d"/><stop offset=".35" stop-color="#df552d"/><stop offset=".68" stop-color="#888bb0"/><stop offset="1" stop-color="#1b3663"/></linearGradient>
+    <linearGradient id="ribbon" x1="410" y1="50" x2="1190" y2="280" gradientUnits="userSpaceOnUse"><stop stop-color="#f5b76a"/><stop offset=".45" stop-color="#ece2be"/><stop offset=".7" stop-color="#a7bbbd"/><stop offset="1" stop-color="#326080"/></linearGradient>
+    <linearGradient id="blue" x1="740" y1="60" x2="1230" y2="410" gradientUnits="userSpaceOnUse"><stop stop-color="#314a7f"/><stop offset=".55" stop-color="#1a3058"/><stop offset="1" stop-color="#101d38"/></linearGradient>
+    <radialGradient id="sun" cx="0" cy="0" r="1" gradientTransform="translate(170 75) rotate(28) scale(550 420)" gradientUnits="userSpaceOnUse"><stop stop-color="#ffd189"/><stop offset="1" stop-color="#e79247" stop-opacity="0"/></radialGradient>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".15"/></feComponentTransfer><feBlend in="SourceGraphic" mode="soft-light"/></filter>
+  </defs>
+  <g filter="url(#grain)">
+    <path fill="url(#base)" d="M0 0h1360v360H0z"/>
+    <path fill="url(#sun)" d="M0 0h1360v360H0z"/>
+    <path d="M-100 389C-19 75 201-91 405 18c142 76 131 219 257 237 147 22 189-187 354-211 150-22 264 64 434 5v156c-167 47-258-64-409-29-156 37-225 242-422 190C416 312 425 164 307 144 161 119 86 258 77 406Z" fill="url(#ribbon)"/>
+    <path d="M646 397c63-106 195-70 257-177 82-142 158-239 323-230 77 5 128 43 178 106v309Z" fill="url(#blue)"/>
+    <path d="M882 373c106-123 111-250 214-284 67-22 134-1 167 47" stroke="#97afbd" stroke-width="2" stroke-opacity=".45"/>
+    <path d="M-10 278c94-191 213-273 335-213" stroke="#693e28" stroke-width="2" stroke-opacity=".5"/>
+  </g>
+</svg>
