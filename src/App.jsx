@@ -28,8 +28,8 @@ const App = () => {
       <a className="skip-link" href="#main-content">Skip to content</a>
       <div className="page-column">
         <Home />
-        <Footer />
       </div>
+      <Footer />
       <Header theme={theme} onToggleTheme={toggleTheme} />
     </div>
   );
