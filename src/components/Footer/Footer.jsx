@@ -79,7 +79,6 @@ const Footer = () => {
           </svg>
 
           <svg className="doodle-sky" viewBox="0 0 1200 370" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <g className="doodle-float float-heart"><path d="M347 68c-16-7-21-17-15-22 5-4 10 0 11 4 1-5 7-8 11-4 6 6 0 15-7 22Z" fill="#ed8d93" /></g>
             <g className="doodle-float float-star"><path d="m970 107 3-9 5 8 10 1-8 6 2 10-9-5-8 5 1-10-7-6Z" fill="#efc555" /></g>
             <g className="doodle-float float-spark"><path d="m654 46 3-12 6 11 12 3-11 6-3 12-5-11-13-4Z" fill="#aacdd2" /></g>
             <g className="doodle-float float-bolt"><path d="m794 73-9 16h9l-3 13 15-20h-10l5-12Z" fill="#efc555" /></g>

@@ -94,7 +94,6 @@ export default function EntryLoader({ onFinished }) {
               <g stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                 <path className="entry-ground" pathLength="1" d="M24 326c174 4 263-4 414-1s245-3 388 0 237-3 350 0" />
                 <g className="entry-spark entry-spark-one"><path d="m339 58 4-14 6 13 14 4-13 6-4 14-6-13-13-5Z" fill="#efc555" /></g>
-                <g className="entry-spark entry-spark-two"><path d="M902 86c-18-8-22-19-15-24 6-3 10 2 10 6 4-6 11-7 14-1 3 6-3 13-9 19Z" fill="#ed8d93" /></g>
                 <g className="entry-spark entry-spark-three"><path d="m758 47-8 14h9l-3 13 15-19h-10l5-12Z" fill="#efc555" /></g>
                 <g className="entry-spark entry-spark-four"><path d="m1024 169 4-14 6 12 13 4-12 6-4 13-6-12-13-4Z" fill="#aacdd2" /></g>
                 <g className="entry-motion-lines"><path d="m75 208-24-3m27 16-31 2m1090-16 25-6m-23 20 30 1M566 69l-3-14m16 16 5-12" /></g>
