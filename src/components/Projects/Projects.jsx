@@ -1,11 +1,33 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Github, Globe, LayoutGrid, Rows3 } from "lucide-react";
 import projects from "../utils/projects";
 
 const Projects = () => {
   const shelfRef = useRef(null);
+  const previousHeight = useRef(null);
+  const layoutAnimation = useRef(null);
   const [showAll, setShowAll] = useState(false);
   const [position, setPosition] = useState({ first: true, last: false, index: 1 });
+
+  const toggleLayout = () => {
+    previousHeight.current = shelfRef.current.getBoundingClientRect().height;
+    layoutAnimation.current?.cancel();
+    setShowAll((value) => !value);
+  };
+
+  useLayoutEffect(() => {
+    const shelf = shelfRef.current;
+    if (previousHeight.current === null) return;
+    shelf.scrollLeft = 0;
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      layoutAnimation.current = shelf.animate(
+        [{ height: `${previousHeight.current}px` }, { height: `${shelf.getBoundingClientRect().height}px` }],
+        { duration: 450, easing: "cubic-bezier(.22, 1, .36, 1)" },
+      );
+    }
+    previousHeight.current = null;
+    return () => layoutAnimation.current?.cancel();
+  }, [showAll]);
 
   const updatePosition = () => {
     const shelf = shelfRef.current;
@@ -77,7 +99,7 @@ const Projects = () => {
       </div>
       <div className="projects-bottom">
         <span className="project-counter">{showAll ? `${projects.length} projects, and counting` : <><span>{String(position.index).padStart(2, "0")}</span> / {String(projects.length).padStart(2, "0")}<span className="scroll-hint">A few things from my workbench</span></>}</span>
-        <button type="button" className="text-link" aria-controls="projects-list" aria-expanded={showAll} onClick={() => setShowAll(!showAll)}>{showAll ? <Rows3 size={13} aria-hidden="true" /> : <LayoutGrid size={13} aria-hidden="true" />}{showAll ? "Back to gallery" : "View all projects"}</button>
+        <button type="button" className="text-link" aria-controls="projects-list" aria-expanded={showAll} onClick={toggleLayout}>{showAll ? <Rows3 size={13} aria-hidden="true" /> : <LayoutGrid size={13} aria-hidden="true" />}{showAll ? "Back to gallery" : "View all projects"}</button>
       </div>
     </section>
   );

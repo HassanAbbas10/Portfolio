@@ -1,6 +1,32 @@
 import { ArrowUpRight, ChevronDown, MapPin } from "lucide-react";
 import { companies, experiences } from "../utils/projects";
 
+const accordionAnimations = new WeakMap();
+const toggleExperience = (event) => {
+  if (event.target.closest("a")) return;
+  event.preventDefault();
+  const details = event.currentTarget.parentElement;
+  const previous = accordionAnimations.get(details);
+  const opening = previous ? !previous.opening : !details.open;
+  const startHeight = details.getBoundingClientRect().height;
+  previous?.animation.cancel();
+  details.open = true;
+  const endHeight = opening ? details.getBoundingClientRect().height : event.currentTarget.getBoundingClientRect().height;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    details.open = opening;
+    return;
+  }
+  const animation = details.animate(
+    [{ height: `${startHeight}px`, overflow: "hidden" }, { height: `${endHeight}px`, overflow: "hidden" }],
+    { duration: 400, easing: "cubic-bezier(.22, 1, .36, 1)" },
+  );
+  accordionAnimations.set(details, { animation, opening });
+  animation.onfinish = () => {
+    details.open = opening;
+    accordionAnimations.delete(details);
+  };
+};
+
 const Experience = () => (
   <section id="experience" className="portfolio-section experience-section" aria-labelledby="experience-heading">
     <div className="section-heading">
@@ -17,7 +43,7 @@ const Experience = () => (
 
         return (
           <details key={experience.id} className="experience-item" open={index === 0}>
-            <summary className="experience-row">
+            <summary className="experience-row" onClick={toggleExperience}>
               <span className="experience-date">{experience.duration}</span>
               <span className="company-logo" aria-hidden="true">
                 <img src={company.logo} alt="" width="34" height="34" loading="lazy" decoding="async" />
