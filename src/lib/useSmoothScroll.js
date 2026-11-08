@@ -23,6 +23,18 @@ export default function useSmoothScroll(enabled = true) {
     };
 
     updateScroll();
+
+    // React mounts section targets after the browser's initial hash navigation.
+    try {
+      const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+      if (target) {
+        if (scrollRef.current) scrollRef.current.scrollTo(target, { immediate: true });
+        else target.scrollIntoView({ behavior: "instant" });
+      }
+    } catch {
+      // Ignore malformed hashes without preventing the page from scrolling.
+    }
+
     reducedMotion.addEventListener("change", updateScroll);
 
     return () => {
