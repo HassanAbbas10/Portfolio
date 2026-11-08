@@ -16,6 +16,36 @@
   :focus-visible { outline: 2px solid #52816a; outline-offset: 5px; }
 }
 
+html.theme-changing::view-transition-group(root) {
+  animation: none;
+}
+
+html.theme-changing::view-transition-old(root),
+html.theme-changing::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html.theme-changing::view-transition-old(root) { z-index: 1; }
+
+html.theme-changing::view-transition-new(root) {
+  z-index: 2;
+  animation: reveal-theme 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+html.theme-changing::view-transition { pointer-events: none; }
+
+/* Snap the new palette into the captured view; the circle handles the motion. */
+html.theme-changing .portfolio,
+html.theme-changing .portfolio * {
+  transition: none !important;
+}
+
+@keyframes reveal-theme {
+  from { clip-path: circle(0px at var(--theme-reveal-x) var(--theme-reveal-y)); }
+  to { clip-path: circle(var(--theme-reveal-radius) at var(--theme-reveal-x) var(--theme-reveal-y)); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
