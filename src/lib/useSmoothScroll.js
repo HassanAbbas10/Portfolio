@@ -2,10 +2,11 @@ import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 
-export default function useSmoothScroll() {
+export default function useSmoothScroll(enabled = true) {
   const scrollRef = useRef(null);
 
   useEffect(() => {
+    if (!enabled) return;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const updateScroll = () => {
       scrollRef.current?.destroy();
@@ -29,7 +30,7 @@ export default function useSmoothScroll() {
       scrollRef.current?.destroy();
       scrollRef.current = null;
     };
-  }, []);
+  }, [enabled]);
 
   return scrollRef;
 }

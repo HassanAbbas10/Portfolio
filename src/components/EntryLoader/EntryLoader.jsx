@@ -1,385 +1,124 @@
-import { useState, useEffect, useRef } from "react";
-const loadingStates =
-[
-  { text: "Waking the Node Modules" },
-  { text: "Igniting the Tailwind Reactor" },
-  { text: "Gathering the Style Threads" },
-  { text: "Calibrating Your Experience Matrix" },
-  { text: "Smoothing the Render Currents" },
-  { text: "Stabilizing the Compile Gateway..." },
-  { text: "The Nexus Breathes. Welcome." }
-]
-const STEP_DURATION = 1200; 
+import { useEffect, useId, useRef, useState } from "react";
+import PropTypes from "prop-types";
+import { ArrowUpRight } from "lucide-react";
+import { Ghost, Kid, PirateCat, Yeti } from "../Footer/DoodleCharacters";
+import "./EntryLoader.css";
 
-// ─── Icons (matching original component) ────────────────────
-const CheckOutline = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={1.5}
-    stroke="currentColor"
-    style={{ width: 22, height: 22, color: "white" }}
-  >
-    <path d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-  </svg>
-);
+const welcome = [..."WELCOME"];
 
-const CheckFilled = ({ active }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    style={{
-      width: 22,
-      height: 22,
-      color: active ? "#84cc16" : "rgba(255,255,255,0.65)",
-      filter: active
-        ? "drop-shadow(0 0 8px rgba(132, 204, 22, 0.5))"
-        : "none",
-      transition: "all 0.4s ease",
-    }}
-  >
-    <path
-      fillRule="evenodd"
-      d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-      clipRule="evenodd"
-    />
-  </svg>
-);
-
-const LoaderCore = ({ value = 0 }) => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      position: "relative",
-      maxWidth: "32rem",
-      margin: "0 auto",
-      marginTop: "10rem",
-    }}
-  >
-    {loadingStates.map((state, index) => {
-      const distance = Math.abs(index - value);
-      const opacity = Math.max(1 - distance * 0.2, 0);
-      const isActive = value === index;
-      const isDone = index < value;
-
-      return (
-        <div
-          key={index}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.75rem",
-            marginBottom: "1rem",
-            textAlign: "left",
-            opacity,
-            transform: `translateY(${-(value * 44)}px)`,
-            transition:
-              "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease",
-          }}
-        >
-          <div
-            style={{
-              flexShrink: 0,
-              transition:
-                "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-              transform: isActive ? "scale(1.2)" : "scale(1)",
-            }}
-          >
-            {index > value ? <CheckOutline /> : <CheckFilled active={isActive} />}
-          </div>
-
-          <span
-            style={{
-              fontSize: "0.95rem",
-              fontWeight: isActive ? 500 : 400,
-              color: isActive
-                ? "#84cc16"
-                : isDone
-                ? "rgba(255,255,255,0.45)"
-                : "white",
-              transition: "color 0.4s ease",
-              letterSpacing: "0.01em",
-            }}
-          >
-            {state.text}
-          </span>
-
-          {isActive && (
-            <span
-              style={{
-                display: "inline-block",
-                width: 5,
-                height: 5,
-                borderRadius: "50%",
-                background: "#84cc16",
-                marginLeft: 2,
-                boxShadow: "0 0 6px rgba(132, 204, 22, 0.6)",
-                animation: "entryloader-blink 1s ease-in-out infinite",
-              }}
-            />
-          )}
-        </div>
-      );
-    })}
-  </div>
-);
-
-export default function EntryLoader({ onFinished, minimumDuration = 0 }) {
-  const [currentState, setCurrentState] = useState(0);
+export default function EntryLoader({ onFinished }) {
   const [exiting, setExiting] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const progressRef = useRef(0);
-  const mountTime = useRef(Date.now());
+  const skipRef = useRef(null);
+  const id = useId().replace(/:/g, "");
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
-  }, []);
+    const root = document.documentElement;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let cancelled = false;
+    let minimumElapsed = false;
+    let assetsReady = false;
+    let leaving = false;
+    let exitTimer;
 
-  // Step progression
-  useEffect(() => {
-    if (exiting) return;
-    const timeout = setTimeout(() => {
-      setCurrentState((prev) =>
-        prev >= loadingStates.length - 1 ? prev : prev + 1
-      );
-    }, STEP_DURATION);
-    return () => clearTimeout(timeout);
-  }, [currentState, exiting]);
+    root.classList.add("intro-loading");
+    skipRef.current?.focus({ preventScroll: true });
 
-  // Smooth progress
-  useEffect(() => {
-    const target = Math.min(
-      ((currentState + 1) / loadingStates.length) * 100,
-      100
-    );
-    let raf;
-    const animate = () => {
-      progressRef.current += (target - progressRef.current) * 0.07;
-      if (Math.abs(progressRef.current - target) < 0.5) {
-        progressRef.current = target;
-        setProgress(target);
-        return;
-      }
-      setProgress(progressRef.current);
-      raf = requestAnimationFrame(animate);
+    const finishWhenReady = () => {
+      if (cancelled || leaving || !minimumElapsed || !assetsReady) return;
+      leaving = true;
+      setExiting(true);
+      exitTimer = window.setTimeout(onFinished, reducedMotion ? 0 : 760);
     };
-    raf = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(raf);
-  }, [currentState]);
+    const minimumTimer = window.setTimeout(() => {
+      minimumElapsed = true;
+      finishWhenReady();
+    }, reducedMotion ? 150 : 2500);
+    const maximumTimer = window.setTimeout(() => {
+      assetsReady = true;
+      finishWhenReady();
+    }, reducedMotion ? 1200 : 5000);
 
-  // When all steps complete → exit → unmount
-  useEffect(() => {
-    if (currentState >= loadingStates.length - 1 && !exiting) {
-      const elapsed = Date.now() - mountTime.current;
-      const remainingWait = Math.max(0, minimumDuration - elapsed);
-
-      const timer = setTimeout(() => {
-        setExiting(true);
-        // Wait for the CSS fade-out to finish, then tell parent we're done
-        setTimeout(() => {
-          onFinished?.();
-        }, 850);
-      }, STEP_DURATION + remainingWait);
-
-      return () => clearTimeout(timer);
+    // Warm the first-screen assets while the opening scene plays.
+    const assets = Array.from(document.querySelectorAll(".hero-art img, .profile-photo"))
+      .map((image) => image.decode());
+    if (document.fonts) {
+      assets.push(document.fonts.load('900 100px "Doodle Stamp"'));
+      assets.push(document.fonts.load('400 16px "Instrument Serif"'));
     }
-  }, [currentState, exiting, onFinished, minimumDuration]);
+    Promise.allSettled(assets).then(() => {
+      assetsReady = true;
+      finishWhenReady();
+    });
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(minimumTimer);
+      window.clearTimeout(maximumTimer);
+      window.clearTimeout(exitTimer);
+      root.classList.remove("intro-loading");
+    };
+  }, [onFinished]);
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 9999,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "'Sora', system-ui, sans-serif",
-        color: "white",
-        opacity: exiting ? 0 : 1,
-        transform: exiting ? "scale(1.03)" : "scale(1)",
-        transition:
-          "opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
-        pointerEvents: exiting ? "none" : "auto",
-      }}
-    >
-      {/* Keyframes */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap');
-        @keyframes entryloader-blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.15; }
-        }
-        @keyframes entryloader-shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-        @keyframes entryloader-fadeInUp {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes entryloader-spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
+    <div className={`entry-loader${exiting ? " is-exiting" : ""}`} role="dialog" aria-modal="true" aria-labelledby={`${id}-title`} aria-describedby={`${id}-description`} onKeyDown={(event) => {
+      if (event.key === "Escape") onFinished();
+      if (event.key === "Tab") {
+        event.preventDefault();
+        skipRef.current?.focus();
+      }
+    }}>
+      <div className="entry-curtain entry-curtain-left" aria-hidden="true" />
+      <div className="entry-curtain entry-curtain-right" aria-hidden="true" />
 
-      {/* Dark background */}
-      <div style={{ position: "absolute", inset: 0, background: "#09090b" }} />
+      <div className="entry-film">
+        <header className="entry-film-header">
+          <span className="entry-credit">HASSAN ABBAS<span>A LITTLE INTRODUCTION</span></span>
+          <button ref={skipRef} type="button" className="entry-skip" onClick={onFinished}>Skip intro<ArrowUpRight size={14} aria-hidden="true" /></button>
+        </header>
 
-      {/* Subtle lime glow */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "radial-gradient(ellipse 50% 40% at 50% 45%, rgba(132,204,22,0.03) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }}
-      />
+        <div className="entry-film-center">
+          <p className="entry-scene-label"><span />A LITTLE CURIOSITY GOES A LONG WAY</p>
+          <h1 className="entry-accessible-title" id={`${id}-title`}>Welcome to Hassan’s portfolio</h1>
 
-      {/* Backdrop blur */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          backdropFilter: "blur(40px)",
-          WebkitBackdropFilter: "blur(40px)",
-        }}
-      />
+          <div className="entry-stage" aria-hidden="true">
+            <svg className="entry-ink" viewBox="0 0 1200 390" fill="none">
+              <defs>
+                <mask id={`${id}-ink`} maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="390">
+                  <rect width="1200" height="390" fill="white" />
+                  {Array.from({ length: 66 }, (_, index) => <path key={index} d={`M${(index * 137 + 17) % 1160} ${133 + (index * 31) % 175}l${15 + (index * 37) % 110} ${index % 2 ? -1.7 : 1.4}`} stroke="black" strokeWidth={0.7 + (index % 4) * 0.5} />)}
+                </mask>
+              </defs>
+              <g mask={`url(#${id}-ink)`} fill="currentColor">
+                {welcome.map((letter, index) => <text className="entry-welcome-letter" key={`${letter}-${index}`} x={62 + index * 154} y="309" textLength="151" lengthAdjust="spacingAndGlyphs" style={{ "--letter": index }}>{letter}</text>)}
+              </g>
+              <g stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <path className="entry-ground" pathLength="1" d="M24 326c174 4 263-4 414-1s245-3 388 0 237-3 350 0" />
+                <g className="entry-spark entry-spark-one"><path d="m339 58 4-14 6 13 14 4-13 6-4 14-6-13-13-5Z" fill="#efc555" /></g>
+                <g className="entry-spark entry-spark-two"><path d="M902 86c-18-8-22-19-15-24 6-3 10 2 10 6 4-6 11-7 14-1 3 6-3 13-9 19Z" fill="#ed8d93" /></g>
+                <g className="entry-spark entry-spark-three"><path d="m758 47-8 14h9l-3 13 15-19h-10l5-12Z" fill="#efc555" /></g>
+                <g className="entry-spark entry-spark-four"><path d="m1024 169 4-14 6 12 13 4-12 6-4 13-6-12-13-4Z" fill="#aacdd2" /></g>
+                <g className="entry-motion-lines"><path d="m75 208-24-3m27 16-31 2m1090-16 25-6m-23 20 30 1M566 69l-3-14m16 16 5-12" /></g>
+                <path d="M199 340c-8-5-16 0-9 4 7 4 16 0 9-4Zm804 2c-8-5-15 0-9 4 7 5 16 0 9-4Z" />
+              </g>
+            </svg>
+            <span className="entry-actor entry-yeti"><span className="entry-actor-body"><Yeti /></span></span>
+            <span className="entry-actor entry-kid"><span className="entry-actor-body"><Kid /></span></span>
+            <span className="entry-actor entry-ghost"><span className="entry-actor-body"><Ghost /></span></span>
+            <span className="entry-actor entry-cat"><span className="entry-actor-body"><PirateCat /></span></span>
+            <span className="entry-hello">hey, you.<svg viewBox="0 0 66 38"><path d="M3 4c13 1 34 6 48 22m-2-12 8 19-21-4" /></svg></span>
+          </div>
 
-      {/* Grid texture */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px)
-          `,
-          backgroundSize: "64px 64px",
-          pointerEvents: "none",
-        }}
-      />
-
-
-
-      {/* Radial mask fade (original style) */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 20,
-          background: "linear-gradient(to top, #09090b, transparent 60%)",
-          maskImage:
-            "radial-gradient(900px at center, transparent 30%, white)",
-          WebkitMaskImage:
-            "radial-gradient(900px at center, transparent 30%, white)",
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* Step list */}
-      <div
-        style={{
-          position: "relative",
-          zIndex: 10,
-          height: "24rem",
-          width: "min(88vw, 30rem)",
-          overflow: "hidden",
-        }}
-      >
-        <LoaderCore value={currentState} />
-      </div>
-
-      {/* Bottom progress */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: 30,
-          padding: "0 0 2.5rem 0",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "0.85rem",
-          animation: "entryloader-fadeInUp 0.6s ease-out 0.3s both",
-        }}
-      >
-        {/* Progress track */}
-        <div
-          style={{
-            width: "min(75vw, 300px)",
-            height: 2,
-            background: "rgba(255,255,255,0.04)",
-            borderRadius: 1,
-            overflow: "hidden",
-            position: "relative",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              top: 0,
-              height: "100%",
-              width: `${progress}%`,
-              background:
-                "linear-gradient(90deg, #4d7c0f, #84cc16, #a3e635)",
-              backgroundSize: "200% 100%",
-              animation: "entryloader-shimmer 2s linear infinite",
-              borderRadius: 1,
-              boxShadow: "0 0 10px rgba(132, 204, 22, 0.25)",
-            }}
-          />
+          <p className="entry-caption" id={`${id}-description`}>Good things start with a little curiosity.</p>
+          <span className="entry-byline">A PORTFOLIO BY HASSAN ABBAS</span>
         </div>
 
-        {/* Spinner + percent */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.6rem",
-          }}
-        >
-          <svg
-            width="13"
-            height="13"
-            viewBox="0 0 14 14"
-            style={{
-              animation: "entryloader-spin 1.8s linear infinite",
-              opacity: 0.35,
-            }}
-          >
-            <circle
-              cx="7"
-              cy="7"
-              r="5.5"
-              fill="none"
-              stroke="rgba(132, 204, 22, 0.6)"
-              strokeWidth="1.5"
-              strokeDasharray="18 16"
-              strokeLinecap="round"
-            />
-          </svg>
-          <span
-            style={{
-              fontSize: "0.68rem",
-              letterSpacing: "0.06em",
-              color: "rgba(255,255,255,0.2)",
-              fontWeight: 400,
-            }}
-          >
-            {Math.round(progress)}%
-          </span>
-        </div>
+        <footer className="entry-film-footer">
+          <span>MADE WITH CARE. AND A LITTLE CHARACTER.</span>
+          <span className="entry-scene-track" aria-hidden="true"><i /><i /><i /><span>LET’S BEGIN</span></span>
+        </footer>
       </div>
     </div>
   );
 }
+
+EntryLoader.propTypes = { onFinished: PropTypes.func.isRequired };

@@ -1,13 +1,16 @@
-import { useRef, useState } from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./Pages/Home";
+import EntryLoader from "./components/EntryLoader/EntryLoader";
 import useSmoothScroll from "./lib/useSmoothScroll";
 import "./App.css";
 
 const App = () => {
-  const smoothScroll = useSmoothScroll();
+  const [introFinished, setIntroFinished] = useState(false);
+  const finishIntro = useCallback(() => setIntroFinished(true), []);
+  const smoothScroll = useSmoothScroll(introFinished);
   const isThemeTransitioning = useRef(false);
   const [theme, setTheme] = useState(() => {
     try {
@@ -16,6 +19,10 @@ const App = () => {
       return "light";
     }
   });
+
+  useLayoutEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   const toggleTheme = (event) => {
     if (isThemeTransitioning.current) return;
@@ -69,12 +76,15 @@ const App = () => {
 
   return (
     <div className="portfolio" data-theme={theme}>
-      <a className="skip-link" href="#main-content">Skip to content</a>
-      <div className="page-column">
-        <Home />
+      <div inert={introFinished ? undefined : ""} aria-hidden={introFinished ? undefined : true}>
+        <a className="skip-link" href="#main-content">Skip to content</a>
+        <div className="page-column">
+          <Home />
+        </div>
+        <Footer />
+        <Header theme={theme} onToggleTheme={toggleTheme} />
       </div>
-      <Footer />
-      <Header theme={theme} onToggleTheme={toggleTheme} />
+      {!introFinished && <EntryLoader onFinished={finishIntro} />}
     </div>
   );
 };
