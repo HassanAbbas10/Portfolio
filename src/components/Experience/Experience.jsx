@@ -1,11 +1,5 @@
-import { ChevronDown, MapPin } from "lucide-react";
-import { experiences } from "../utils/projects";
-
-const companyMarks = {
-  "Developer Tag": { initials: "DT", className: "company-mark-developer" },
-  "Void Soft Technologies": { initials: "VS", className: "company-mark-void" },
-  Agentech: { initials: "A", className: "company-mark-agentech" },
-};
+import { ArrowUpRight, ChevronDown, MapPin } from "lucide-react";
+import { companies, experiences } from "../utils/projects";
 
 const Experience = () => (
   <section id="experience" className="portfolio-section experience-section" aria-labelledby="experience-heading">
@@ -19,18 +13,22 @@ const Experience = () => (
 
     <div className="experience-list">
       {experiences.map((experience, index) => {
-        const mark = companyMarks[experience.company];
+        const company = companies[experience.company];
 
         return (
           <details key={experience.id} className="experience-item" open={index === 0}>
             <summary className="experience-row">
               <span className="experience-date">{experience.duration}</span>
-              <span className={`company-mark ${mark.className}`} aria-hidden="true">
-                {mark.initials}
+              <span className="company-logo" aria-hidden="true">
+                <img src={company.logo} alt="" width="34" height="34" loading="lazy" decoding="async" />
               </span>
               <span className="experience-role">
                 <span className="experience-title">{experience.title}</span>
-                <span className="experience-company">{experience.company}</span>
+                {company.linkedin ? (
+                  <a className="experience-company" href={company.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${experience.company} on LinkedIn`}>
+                    {experience.company}<ArrowUpRight size={10} aria-hidden="true" />
+                  </a>
+                ) : <span className="experience-company">{experience.company}</span>}
               </span>
               <ChevronDown className="experience-chevron" size={17} aria-hidden="true" />
             </summary>

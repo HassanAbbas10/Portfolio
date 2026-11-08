@@ -2,7 +2,7 @@ export const words = ["I am a React Js Developer", "Specializing in Front-end"];
 
 export const socialLinks = {
 	email: "mailto:hassanabbas05764@gmail.com",
-	linkedin: "https://www.linkedin.com/in/hassan-abbas-b34545263/",
+	linkedin: "https://www.linkedin.com/in/hassana-dev/",
 	github: "https://github.com/HassanAbbas10",
 	instagram: "https://www.instagram.com/",
 };
@@ -145,6 +145,21 @@ const projects = [
 		technologies: ["React", "Node", "Express", "MongoDB", "Tailwind", "Axios"],
 	},
 ];
+
+export const companies = {
+	"Developer Tag": {
+		logo: "/companies/developer-tag.webp",
+		linkedin: "https://www.linkedin.com/company/developertag/",
+	},
+	"Void Soft Technologies": {
+		// Logo source: https://digitaldgk.com/our-journey/ (Void Soft Technologies).
+		logo: "/companies/void-soft.webp",
+	},
+	Agentech: {
+		logo: "/companies/agentech.webp",
+		linkedin: "https://www.linkedin.com/company/agen-tech/",
+	},
+};
 
 export const experiences = [
 	{
