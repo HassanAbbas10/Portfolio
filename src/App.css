@@ -35,9 +35,12 @@
 .hero-art { position: relative; height: 180px; overflow: hidden; border-radius: 12px; background: #c9754d; isolation: isolate; }
 .hero-art > img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(.2,.7,.2,1); }
 .hero-art:hover > img { transform: scale(1.035); }
-.art-monogram { position: absolute; left: 25px; top: 8px; color: #fff9e9; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 42px; line-height: 1.5; }
-.art-caption { position: absolute; right: 24px; bottom: 22px; color: #f9f5e7; font-size: 9px; letter-spacing: .09em; }
-.art-spark { position: absolute; top: 16px; right: 24px; color: #f9f5e7; font-size: 28px; font-weight: 400; }
+.art-monogram { position: absolute; left: 25px; top: 8px; color: #000; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 42px; line-height: 1.5; }
+.art-caption { position: absolute; right: 24px; bottom: 22px; color: #000; font-size: 9px; letter-spacing: .09em; }
+.art-spark { position: absolute; top: 16px; right: 24px; color: #000; font-size: 28px; font-weight: 400; }
+.portfolio[data-theme="dark"] .art-monogram,
+.portfolio[data-theme="dark"] .art-caption,
+.portfolio[data-theme="dark"] .art-spark { color: #fff; }
 .profile-heading { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin: 31px 0 25px; }
 .availability { display: flex; align-items: center; gap: 7px; color: var(--green); font-size: 10px; line-height: 1.4; margin-bottom: 8px; }
 .availability > span, .status-dot { width: 5px; height: 5px; border-radius: 50%; background: #658859; box-shadow: 0 0 0 3px #65885912; }
