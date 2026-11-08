@@ -32,7 +32,7 @@ export default function EntryLoader({ onFinished }) {
     const minimumTimer = window.setTimeout(() => {
       minimumElapsed = true;
       finishWhenReady();
-    }, reducedMotion ? 150 : 2500);
+    }, reducedMotion ? 150 : 4500);
     const maximumTimer = window.setTimeout(() => {
       assetsReady = true;
       finishWhenReady();
