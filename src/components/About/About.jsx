@@ -5,7 +5,13 @@ import PropTypes from "prop-types";
 const About = ({ theme }) => (
   <section id="about" className="hero-section" aria-labelledby="profile-name">
     <div className="hero-art" aria-hidden="true">
-      <img key={theme} src={theme === "dark" ? "/projects/ponyo-loves-ham.gif" : "/projects/sleepy-cat-animation.gif"} alt="" width="1360" height="360" />
+      <img
+        key={theme}
+        src={`${theme === "dark" ? "/projects/ponyo-loves-ham.gif" : "/projects/sleepy-cat-animation.gif"}?theme=${theme}`}
+        alt=""
+        width="1360"
+        height="360"
+      />
       <span className="art-monogram">ha.</span>
       <span className="art-caption">A little curiosity. A lot of building.</span>
       <span className="art-spark">✳</span>
