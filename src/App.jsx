@@ -47,7 +47,12 @@ const App = () => {
     const bounds = event.currentTarget.getBoundingClientRect();
     const x = bounds.left + bounds.width / 2;
     const y = bounds.top + bounds.height / 2;
-    const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y)) + 2;
+    // Carry the reveal past the last corner before releasing the snapshots.
+    // Include the 24px feather so the final frame is fully opaque at every corner.
+    const radius = Math.ceil(Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y),
+    )) + 48;
     const root = document.documentElement;
     const finishTransition = () => {
       root.classList.remove("theme-changing");

@@ -49,6 +49,18 @@ const projects = [
 		featured: true,
 	},
 	{
+		id: "alchemy",
+		picture: "/projects/alchemy.png",
+		heading: "The Alchemy of Perfume",
+		description:
+			"A fragrance storefront with an editorial design, scent collections, discovery sets, and a story-led shopping experience.",
+		livelink: "https://alchemy-theta-murex.vercel.app/",
+		status: "Live",
+		category: "Fragrance storefront",
+		technologies: ["Next.js"],
+		featured: true,
+	},
+	{
 		id: 1,
 		picture: "/projects/dev-shop.webp",
 		heading: "Dev-Shop",

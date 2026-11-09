@@ -6,23 +6,51 @@ const toggleExperience = (event) => {
   if (event.target.closest("a")) return;
   event.preventDefault();
   const details = event.currentTarget.parentElement;
+  const content = details.querySelector(".experience-detail");
   const previous = accordionAnimations.get(details);
   const opening = previous ? !previous.opening : !details.open;
   const startHeight = details.getBoundingClientRect().height;
-  previous?.animation.cancel();
-  details.open = true;
-  const endHeight = opening ? details.getBoundingClientRect().height : event.currentTarget.getBoundingClientRect().height;
+  const contentStyle = getComputedStyle(content);
+  const startOpacity = previous ? contentStyle.opacity : opening ? "0" : "1";
+  const startTransform = previous ? contentStyle.transform : opening ? "translateY(6px)" : "none";
+  if (previous) {
+    previous.animation.onfinish = null;
+    previous.animation.cancel();
+    previous.contentAnimation.cancel();
+    accordionAnimations.delete(details);
+  }
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     details.open = opening;
+    delete details.dataset.closing;
     return;
   }
+
+  details.open = true;
+  details.dataset.closing = String(!opening);
+  const style = getComputedStyle(details);
+  const borderHeight = parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
+  const endHeight = opening
+    ? details.getBoundingClientRect().height
+    : event.currentTarget.getBoundingClientRect().height + borderHeight;
+  const timing = { duration: 550, easing: "cubic-bezier(.25, .8, .25, 1)", fill: "both" };
   const animation = details.animate(
     [{ height: `${startHeight}px`, overflow: "hidden" }, { height: `${endHeight}px`, overflow: "hidden" }],
-    { duration: 400, easing: "cubic-bezier(.22, 1, .36, 1)" },
+    timing,
   );
-  accordionAnimations.set(details, { animation, opening });
+  const contentAnimation = content.animate(
+    [
+      { opacity: startOpacity, transform: startTransform },
+      { opacity: opening ? 1 : 0, transform: opening ? "none" : "translateY(6px)" },
+    ],
+    timing,
+  );
+  accordionAnimations.set(details, { animation, contentAnimation, opening });
   animation.onfinish = () => {
     details.open = opening;
+    delete details.dataset.closing;
+    // Release the measured height only after the native details state is settled.
+    animation.cancel();
+    contentAnimation.cancel();
     accordionAnimations.delete(details);
   };
 };
@@ -38,11 +66,11 @@ const Experience = () => (
     </div>
 
     <div className="experience-list">
-      {experiences.map((experience, index) => {
+      {experiences.map((experience) => {
         const company = companies[experience.company];
 
         return (
-          <details key={experience.id} className="experience-item" open={index === 0}>
+          <details key={experience.id} className="experience-item">
             <summary className="experience-row" onClick={toggleExperience}>
               <span className="experience-date">{experience.duration}</span>
               <span className="company-logo" aria-hidden="true">

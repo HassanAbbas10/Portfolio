@@ -7,23 +7,26 @@ import {
   SiCss,
   SiTailwindcss,
   SiRedux,
+  SiExpo,
   SiNodedotjs,
   SiExpress,
   SiNestjs,
   SiMongodb,
   SiPostgresql,
+  SiRedis,
   SiDrizzle,
   SiSupabase,
   SiFirebase,
   SiFigma,
   SiStripe,
+  SiDocker,
 } from "react-icons/si";
-import { Braces } from "lucide-react";
+import { Boxes, Braces, ListTodo } from "lucide-react";
 
 const toolGroups = [
   {
-    name: "Frontend",
-    description: "Interfaces that look good and feel fast.",
+    name: "Frontend & mobile",
+    description: "Web and mobile interfaces that feel fast.",
     tools: [
       { name: "React", icon: SiReact, color: "#087ea4" },
       { name: "Next.js", icon: SiNextdotjs, color: "#252525" },
@@ -32,6 +35,9 @@ const toolGroups = [
       { name: "CSS", icon: SiCss, color: "#663399" },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#0891b2" },
       { name: "Redux", icon: SiRedux, color: "#764abc" },
+      { name: "Zustand", icon: Boxes, color: "#806349" },
+      { name: "React Native", icon: SiReact, color: "#087ea4" },
+      { name: "Expo", icon: SiExpo, color: "#555d70" },
     ],
   },
   {
@@ -43,6 +49,8 @@ const toolGroups = [
       { name: "NestJS", icon: SiNestjs, color: "#d82148" },
       { name: "MongoDB", icon: SiMongodb, color: "#459d45" },
       { name: "PostgreSQL", icon: SiPostgresql, color: "#336791" },
+      { name: "Redis", icon: SiRedis, color: "#c6302b" },
+      { name: "BullMQ", icon: ListTodo, color: "#b85833" },
       { name: "Drizzle ORM", icon: SiDrizzle, color: "#59772b" },
       { name: "Supabase", icon: SiSupabase, color: "#238d63" },
       { name: "Firebase", icon: SiFirebase, color: "#e18800" },
@@ -55,6 +63,7 @@ const toolGroups = [
     tools: [
       { name: "AWS", icon: FaAws, color: "#b97917" },
       { name: "Git", icon: FaGitAlt, color: "#e34f26" },
+      { name: "Docker", icon: SiDocker, color: "#2496ed" },
       { name: "Figma", icon: SiFigma, color: "#a259ff" },
       { name: "Stripe", icon: SiStripe, color: "#635bff" },
     ],

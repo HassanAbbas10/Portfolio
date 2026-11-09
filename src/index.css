@@ -2,10 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@property --theme-reveal-progress {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
 @layer base {
   * { box-sizing: border-box; }
   html { --page-background: #faf9f6; scroll-behavior: auto; scroll-padding-top: 36px; scrollbar-gutter: stable; color-scheme: light; background: var(--page-background); }
   html[data-theme="dark"] { --page-background: #191d1a; color-scheme: dark; }
+  /* Native scrollbars sit outside the captured reveal. Keep their palette stable. */
+  html { scrollbar-color: #858b85 #252a25; }
   body { margin: 0; background: var(--page-background); font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
   button, input, textarea { font: inherit; }
   button, a { -webkit-tap-highlight-color: transparent; }
@@ -31,8 +39,15 @@ html.theme-changing::view-transition-old(root) { z-index: 1; }
 
 html.theme-changing::view-transition-new(root) {
   z-index: 2;
-  animation: reveal-theme 1s linear both;
-  will-change: clip-path;
+  /* Slow the final arc as it crosses the edges instead of cutting off at speed. */
+  animation: reveal-theme 1.5s cubic-bezier(.4, 0, .2, 1) both;
+  /* Blend a narrow band of the two snapshots instead of flipping each pixel. */
+  mask-image: radial-gradient(
+    circle at var(--theme-reveal-x) var(--theme-reveal-y),
+    #000 max(0px, calc(var(--theme-reveal-progress) - 24px)),
+    transparent var(--theme-reveal-progress)
+  );
+  mask-repeat: no-repeat;
 }
 
 html.theme-changing::view-transition { pointer-events: none; }
@@ -45,8 +60,8 @@ html.theme-changing .portfolio * {
 }
 
 @keyframes reveal-theme {
-  from { clip-path: circle(0px at var(--theme-reveal-x) var(--theme-reveal-y)); }
-  to { clip-path: circle(var(--theme-reveal-radius) at var(--theme-reveal-x) var(--theme-reveal-y)); }
+  from { --theme-reveal-progress: 0px; }
+  to { --theme-reveal-progress: var(--theme-reveal-radius); }
 }
 
 @media (prefers-reduced-motion: reduce) {
